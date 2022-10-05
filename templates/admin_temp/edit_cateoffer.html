@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}
+Offer_edit
+{% endblock title %}
+{% block content %}
+
+{% include 'sidebar.html' %}
+
+ <div id="content" style='background-color:#a3a3a2;' class="p-4 p-md-5 pt-5">
+    <h2 class="mb-4">OFFER</h2>
+    <div class="d-flex justify-content-end align-items-end">
+        <span class="row text-end ">
+            <a href="{% url 'offer_add' %}" class='btn btn-dark'>Add offer</a>
+        </span>
+    </div>
+    <form name='myForm' method='post'>
+        {% csrf_token %}
+       <label>Offer Name</label>
+       <input class="form-control" type="text"  value='{{cate_off.Name}}' name='Oname' placeholder="Offer Name" required>
+       
+      <label>Discount Percentage</label>
+       <input class="form-control" type="text" value='{{cate_off.percentage}}' name='Opercentage' placeholder="Discount Percentage" required>
+       <label>Valid Till</label>
+       <input class="form-control" type="date" value='{{cate_off.valid_till}}' name='valid'  required>
+       <input type='submit' value='ADD' onclick='' class='btn btn-primary'>
+     </form>
+     
+ </div>
+ <!-- Button trigger modal -->
+
+  
+{% endblock content %}

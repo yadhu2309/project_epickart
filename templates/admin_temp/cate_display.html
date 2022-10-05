@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Categories
+{% endblock %}
+
+{% block content %}
+{% include 'sidebar.html' %}
+<div id="content" style='background-color:#a3a3a2;' class="p-4 p-md-5 pt-5">
+        <h2 class="mb-4">Category</h2>
+  <a href="{% url 'add_cate' %}" class="btn btn-primary"> Add Category</a>
+<table class="mt-4 table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Category Name</th>
+
+    </tr>
+  </thead>
+  <tbody>
+  {% for i in cate %}
+    <tr>
+      <td>{{i.id}}</td>
+      <td>{{i.cate_name}}</td>
+      <td><a href='#' data-bs-toggle="modal" data-bs-target="#exampleModal{{i.id}}" class='btn btn-danger'>Delete</a>
+
+    </tr>
+
+
+    <div class="modal fade" id="exampleModal{{i.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">EpicKart</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+          Are you sure you want to remove this Category ?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <a class='btn btn-secondary' href="{% url 'remove_cate' i.id %}">OK</a>
+          </div>
+        </div>
+      </div>
+    </div>
+   {% endfor %}
+  </tbody>
+</table>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+{%load static %}
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Male_Fashion Template">
+    <meta name="keywords" content="Male_Fashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cart</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'temp_static/css/font-awesome.min.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'temp_static/css/elegant-icons.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'temp_static/css/magnific-popup.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'temp_static/css/nice-select.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'temp_static/css/owl.carousel.min.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'temp_static/css/slicknav.min.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'temp_static/css/style.css'%}" type="text/css">
+</head>
+
+<body>
+
+    <style>
+        body{
+        overflow-x:hidden;
+        }
+        #epic{
+            animation: ep 10s infinite;
+            
+          }
+          @keyframes ep {
+            0%   {background-color: black;color:white;}
+          25%  {background-color: #cdcfd1;color:black}
+          50%  {background-color: black;color:white}
+          75%  {background-color: #cdcfd1;color:black}
+          100% {background-color: black;color:white}
+            
+          }
+          #kart{
+            animation: kar 3s infinite;
+            
+            position:relative;
+            animation-timing-function:linear;
+          }
+          @keyframes kar {
+           0%{left:0px;}
+           50%{left:100px;}
+           100%{left:0px;}
+            
+          }
+    </style>
+    
+
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Offcanvas Menu Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__option">
+            <div class="offcanvas__links">
+               {% if user.logstatus is True %}
+
+                    <a href="logout/{{user.id}}">Logout</a>
+                                {% else %}
+
+
+                                    <a href="{% url 'user_login' %}">Sign in</a>
+                                {% endif %}
+            </div>
+            <div class="offcanvas__top__hover">
+
+            </div>
+        </div>
+        <div class="offcanvas__nav__option">
+            <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
+            <a href="#"><img src="img/icon/heart.png" alt=""></a>
+            <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
+        </div>
+        <div id="mobile-menu-wrap"></div>
+        <div class="offcanvas__text">
+        </div>
+    </div>
+    <!-- Offcanvas Menu End -->
+
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-7">
+                        <div class="header__top__left">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-5">
+                        <div class="header__top__right">
+                            <div class="header__top__links">
+
+                                {% if user.logstatus is True %}
+                                <a href="logout/{{user.id}}">Logout</a>
+                                {% else %}
+                                <a href="{% url 'user_login' %}">Sign in</a>
+
+
+
+                                {% endif %}
+                            </div>
+                            <div class="header__top__hover">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3">
+                    <div class="header__logo">
+                        {% comment %} <a href="./index.html"><img src=" 'temp_static/img/'" width="100px" alt=""></a> {% endcomment %}
+                           {% include 'logo_epickart.html' %} 
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <nav class="header__menu mobile-menu">
+                        <ul>
+                            <li><a href="{% if user.logstatus %} {% url 'user_index' %} {% else %} {% url 'home' %}{% endif %}">Home</a></li>
+                            <li class="active"><a href="{% if user.logstatus %}{% url 'user_home' %}{% else %}{% url 'productall' %}{% endif %}">Shop</a></li>
+
+
+<!--                            <li><a href="./contact.html">Contacts</a></li>-->
+                            {% if user.logstatus is True%}
+                            <li><a href="{% url 'profile' user.id %}">My Profile</a></li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                    <div class="header__nav__option">
+                        {% comment %} <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
+                        <a href="#"><img src="img/icon/heart.png" alt=""></a>
+                        <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a> {% endcomment %}
+
+                    </div>
+                </div>
+            </div>
+            <div class="canvas__open"><i class="fa fa-bars"></i></div>
+        </div>
+    </header>
+    <!-- Header Section End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__text">
+                        <h4>EpicKart</h4>
+                        <div class="breadcrumb__links">
+                            <a href="{% if user.logstatus %} {% url 'user_index' %} {% else %} {% url 'home' %}{% endif %}">Home</a>
+                            <a href="{% if user.logstatus is True %}{% url 'user_home' %}{% else %}{% url 'productall' %}{% endif %}">Shop</a>
+                            <span>Shopping Cart</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Shopping Cart Section Begin -->
+    <section class="shopping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="shopping__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    
+                                </tr>
+                            <p color="red">{{message}}</p>
+                            </thead>
+                          
+                            <tbody>
+                               
+                           
+                            {% for i in cart %}
+
+                              
+
+                                <tr>
+                                    <td class="product__cart__item">
+                                        <div class="product__cart__item__pic ">
+                                            <img src="{{i.pid.image.url}}" height="20%" width="30%" alt="">
+                                            <div class="d-flex justify-content-between">
+                                                <h6>{{i.pid.cid.cate_name | upper}} {{i.pid.series | upper}} {{i.id}}</h6>
+                                             </div>
+                                            <h5> ₹ {{i.pid.price}}</h5>
+                                        </div>
+                                        <div class="product__cart__item__text">
+
+                                        </div>
+                                    </td>
+                                    <td class="">
+                                        {% if i.pid.stock == 0 %}<span style='color:red'>Out of Stock</span>{% endif %}
+                                        <div class="product_data">
+                                             <span><input type='hidden' class='prod_id' value={{i.id}}>
+                                             <input type='hidden' class='price' value={{i.pid.price}}></span>
+                                              {% csrf_token %}
+                                              
+                                            <span>
+                                               
+                                                {% comment %} <a style="text-decoration:None;" href="sub/{{i.id}}/{{i.pid.id}}"><</a> {% endcomment %}
+                                                <button style="background-color:#030e1c;color:white" class="changeQuantity  decrement-btn">-</button>
+                                               
+                                            </span>
+                                                <span>
+                                                    <input class="qty-input" type="text" style="border:none;text-align:center;background-color: #a6a8ab" value="{{ i.qty }}" size="1" name="qty">
+                                                </span>
+                                            <span>
+                                                <button  id="increment-btn" style="background-color:#030e1c;color:white" class="changeQuantity increment-btn">+</button>
+                                            </span>
+                                            <span>
+                                                <label class=ms-1></label><input class='prod_price'   type="text" style="border:none;text-align:center;" value="{{i.total_price}}"  name="price">
+                                            </span>
+                                        </div>
+                                    </td>
+                                   
+                                    </td>
+                                    <td class="cart__close"><a style="text-decoration:none" data-bs-toggle="modal" data-bs-target="#exampleModal{{i.id}}">
+                                        <i class="fa fa-close"></i>
+                                    </td></a>
+                                </tr>
+                                <!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+  {% include 'modal.html' %}                           
+                            {% endfor %}
+                            
+                          
+                           
+
+                            </tbody>
+                        </table>
+                       
+                    </div>
+                    
+                    {% if cart %}
+                            
+                            {% else %}
+                            <img src="{% static 'gif/kart1.gif' %}" alt="Cart is empty">
+                            {% endif %}
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="continue__btn">
+                                <a href="{% url 'user_home' %}">Continue Shopping</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+<!--                            <div class="continue__btn update__btn">-->
+<!--                                <a href="#"><i class="fa fa-spinner"></i> Update cart</a>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    {% comment %} <div class="cart__discount">
+                        <h6>Discount codes</h6>
+                        <form action="#">
+                            <input type="text" placeholder="Coupon code">
+                            <button type="submit">Apply</button>
+                        </form>
+                    </div> {% endcomment %}
+                    
+                    <div class="cart__total">
+                        <h6>Cart total</h6>
+                        <ul>
+
+                            <li>Total <span> {% if car is none %}{{0}}
+                                {% else %}₹ {{car}}
+                            {% endif %}
+                            </span></li>
+                        </ul>
+                        <a href="{% if user.logstatus %}{% url 'address_checkout' user.id %}{% else %}{% url 'user_login' %}{% endif %}" class="primary-btn">Proceed to checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Shopping Cart Section End -->
+    
+
+    
+
+    <!-- Js Plugins -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+    <script src="{% static 'temp_static/js/jquery-3.3.1.min.js'%}"></script>
+    <script src="{% static 'temp_static/js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'temp_static/js/jquery.nice-select.min.js'%}"></script>
+    <script src="{% static 'temp_static/js/jquery.nicescroll.min.js'%}"></script>
+    <script src="{% static 'temp_static/js/jquery.magnific-popup.min.js'%}"></script>
+    <script src="{% static 'temp_static/js/jquery.countdown.min.js'%}"></script>
+    <script src="{% static 'temp_static/js/jquery.slicknav.js'%}"></script>
+    <script src="{% static 'temp_static/js/mixitup.min.js'%}"></script>
+    <script src="{% static 'temp_static/js/owl.carousel.min.js'%}"></script>
+    <script src="{% static 'temp_static/js/main.js'%}"></script>
+    <script>
+        {% if user.logstatus == True %}
+        var url = '{% url 'cart_update'%}'
+       {% else %} 
+       var url = '{% url 'gcart_update' %}'
+       {% endif %}
+
+        $(document).ready(function(){
+           
+            $('.increment-btn').click(function(e){
+                e.preventDefault();
+                console.log("hello")
+                var inc_val = $(this).closest('.product_data').find('.qty-input').val();
+                var inc_price = $(this).closest('.product_data').find('.price').val();
+                
+                console.log(inc_val)
+                console.log(inc_price)
+                var value = parseInt(inc_val,10);
+                var tot = parseInt(inc_price);
+                console.log("print",total)
+               
+                value = isNaN(value) ? 0: value;
+               var total=0
+                if(value < 6){
+                    value+=1;
+                    for(var i=1;i<=value;i++){
+                        total=tot+total
+                    }
+                    console.log("tot",typeof(total))
+
+                    $(this).closest('.product_data').find('.qty-input').val(value);
+                    $(this).closest('.product_data').find('.prod_price').val(total);
+                    
+                }
+            });
+
+            $('.decrement-btn').click(function(e){
+                e.preventDefault();
+                
+                var inc_price = $(this).closest('.product_data').find('.price').val();
+                var inc_val = $(this).closest('.product_data').find('.qty-input').val();
+                console.log(inc_val)
+                var value = parseInt(inc_val,10);
+                
+                var tot = parseInt(inc_price);
+                console.log("desc",tot)
+               
+               
+                value = isNaN(value) ? 0: value;
+              
+                
+                
+                if(value >1){
+                    value--;
+                    var total = $(this).closest('.product_data').find('.prod_price').val();
+                    var m= parseInt(total)
+                    for( var i=value;i>=value;i--){total = parseInt(total)-tot}
+                    console.log("dec",typeof(total))
+                    console.log('total',total)
+                    
+                    $(this).closest('.product_data').find('.qty-input').val(value);
+                    $(this).closest('.product_data').find('.prod_price').val(total);
+                }
+            });
+             $('.changeQuantity').click(function(e){
+                e.preventDefault();
+                console.log('fetch')
+                var cart_id = $(this).closest('.product_data').find('.prod_id').val()
+                var total = $(this).closest('.product_data').find('.prod_price').val();
+                var product_qty = $(this).closest('.product_data').find('.qty-input').val()
+                var token = $('input[name=csrfmiddlewaretoken]').val()
+                console.log(cart_id)
+                fetch(url,{
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json',
+                        'X-CSRFToken': token,
+                    },
+                    body: JSON.stringify({
+                        cart_id: cart_id,
+                        total: total,
+                        product_qty: product_qty,
+                        
+                        
+                    }),
+                })
+            }) 
+        
+
+        })
+    </script>
+    
+</body>
+
+</html>

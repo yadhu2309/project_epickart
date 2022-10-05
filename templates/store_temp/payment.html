@@ -1,0 +1,294 @@
+{% extends 'storeprofilebase.html' %}
+{% block title %}
+Order
+{% endblock %}
+
+{% block content %}
+<style>
+    body{
+    overflow-x:hidden;
+    }
+</style>
+
+<!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Offcanvas Menu Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__option">
+            <div class="offcanvas__links">
+                <a href="">Logout</a>
+            </div>
+            <div class="offcanvas__top__hover">
+
+            </div>
+        </div>
+        <div class="offcanvas__nav__option">
+            {% comment %} <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
+            <a href="#"><img src="img/icon/heart.png" alt=""></a>
+            <a href="#"><img src="img/icon/cart.png" alt="">  {% endcomment %}
+        </div>
+        <div id="mobile-menu-wrap"></div>
+        <div class="offcanvas__text">
+
+            <p color="white"></p>
+        </div>
+    </div>
+    <!-- Offcanvas Menu End -->
+
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-7">
+                        <div class="header__top__left">
+
+                            <p color="white"></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-5">
+                        <div class="header__top__right">
+                            <div class="header__top__links">
+
+                 
+
+
+
+                            </div>
+                            <div class="header__top__hover">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3">
+                    <div class="header__logo">
+                        {% comment %} <a href="./index.html"><img src="img/logo.png" alt=""></a> {% endcomment %}
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <nav class="header__menu mobile-menu">
+                        <ul>
+                            <li><a href="{% url 'user_index' %}">Home</a></li>
+                            <li><a href="{% url 'user_home'%}">Shop</a></li>
+
+
+                            {% comment %} <li><a href="./contact.html">Contacts</a></li> {% endcomment %}
+                            
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                    <div class="header__nav__option">
+                        {% comment %} <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
+                        <a href="#"><img src="img/icon/heart.png" alt=""></a>
+                        <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a> {% endcomment %}
+
+                    </div>
+                </div>
+            </div>
+            <div class="canvas__open"><i class="fa fa-bars"></i></div>
+        </div>
+    </header>
+    <!-- Header Section End -->
+
+
+<section class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__text">
+<!--                        <h4>Shopping Cart</h4>-->
+<!--                        <div class="breadcrumb__links">-->
+<!--                            <a href="./index.html">Home</a>-->
+<!--                            <a href="{% url 'productall' %}">Shop</a>-->
+<!--                            <span>Shopping Cart</span>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="shopping-cart spad">
+
+        <div class="card shadow border-0 w-50" style="margin-left:10%">
+            <div class="card-body">
+              <h5 class="card-title">Address</h5>
+             {{address.first_name | upper}} {{address.last_name |upper}}<br>
+             {{address.phone}}<br>
+             {{address.email}}<br>
+             {{address.address_line_1}}<br>
+             {{address.address_line_2}},<br>
+             {{address.country}}, {{address.state}}, {{address.city}}<br>
+             Zip Code{{address.zip}}
+             
+
+            </div>
+          </div>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="shopping__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            <p color="red">{{message}}</p>
+                            </thead>
+                            <tbody>
+
+                            {% for i in cart %}
+
+                              
+
+                                <tr>
+                                    <td class="product__cart__item">
+                                        <div class="product__cart__item__pic">
+                                            <img src="{{i.pid.image.url}}" height="20%" width="30%" alt="">
+                                            <div class="d-flex justify-content-between">
+                                                <h6>{{i.pid.product_name | upper}} {{i.pid.series |upper}}</h6>
+                                             </div>
+                                            <h5> ₹ {{i.pid.price}}</h5>
+                                        </div>
+                                        <div class="product__cart__item__text">
+
+                                        </div>
+                                    </td>
+                                    <td class="">
+                                        <div class="">
+
+                                            
+                                                <span>{{i.qty}}</span>
+
+                                        </div>
+                                    </td>
+                                    <td class="cart__price">₹ {{i.total_price}}</td>
+                                   
+                                </tr>
+                             
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="continue__btn">
+                                <a href="{% url 'user_home' %}">Continue Shopping</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+<!--                            <div class="continue__btn update__btn">-->
+<!--                                <a href="#"><i class="fa fa-spinner"></i> Update cart</a>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="cart__discount">
+                        
+                    </div>
+                    <div class="cart__total">
+                        <h6>Cart total</h6>
+                        <ul>
+
+                            <li>Total <span>₹ {{amt}}
+                            </span></li>
+                        </ul>
+                        <div id="paypal-button-container"></div>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="https://www.paypal.com/sdk/js?client-id=AdPK3Ce0r-opx92XewHh9Zjp-og-QQKCSR44QCWIReITy9MVqC5G2LU0UVNMSAhue9jD9vlo-wLo0F84&currency=USD"></script>
+    <script>
+        var amt ={{dolor}}
+        var url = '{% url 'payment_confirm' pay.id add amt %}'
+         //var id = '{{order.payment}}'
+         var redirect_url = "{% url 'payment_complete' %}"
+        function getCookie(name) {
+            let cookieValue = null;
+        
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+        
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        
+                        break;
+                    }
+                }
+            }
+        
+            return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+        paypal.Buttons({
+          // Sets up the transaction when a payment button is clicked
+          createOrder: (data, actions) => {
+            return actions.order.create({
+              purchase_units: [{
+                amount: {
+                  value: amt, // Can also reference a variable or function
+                }
+              }]
+            });
+          },
+          // Finalize the transaction after payer approval
+          onApprove: (data, actions) => {
+            return actions.order.capture().then(function(orderData) {
+              // Successful capture! For dev/demo purposes:
+              console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+              const transaction = orderData.purchase_units[0].payments.captures[0];
+              sendData()
+              function sendData(){
+                fetch(url,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json',
+                        'X-CSRFToken': csrftoken,
+                    },
+                    body: JSON.stringify({
+                        //orderId: id,
+                        transId: orderData.id,
+                        status:orderData.status, 
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('success',data);
+                    console.log('completed'); 
+                    window.location.href = redirect_url + '?transactionId='+data.transId;
+                });
+              }
+              // When ready to go live, remove the alert and show a success message within this page. For example:
+              // const element = document.getElementById('paypal-button-container');
+              // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+              // Or go to another URL:  actions.redirect('thank_you.html');
+            });
+          }
+        }).render('#paypal-button-container');
+      </script>
+  
+
+    {% endblock %}

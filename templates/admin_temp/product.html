@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+product
+{% endblock %}
+{% block content %}
+{% include 'sidebar.html' %}
+<div id="content" style='background-color:#a3a3a2;' class="p-4 p-md-5 pt-5">
+  <a class="btn btn-primary" href="{% url 'add_pro'%}">ADD PRODUCT</a>
+        <h2 class="Products"></h2>
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Image</th>
+      <th scope="col">Brand</th>
+      <th scope="col">Product Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Stock</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for i in prod %}
+    <tr>
+      <th scope="row">{{i.id}}</th>
+      <td><img src="{{i.image.url}}" height="20%" width="20%"></td>
+      <td>{{i.cid.cate_name}}</td>
+      <td>{{i.cid.cate_name}} {{i.series}}</td>
+      <td>{{i.descrip}}</td>
+      <td>{{i.stock}}</td>
+      <td><a href="update/{{i.id}}" class="btn btn-primary">Update</a></td>
+      <td><a href="" data-bs-toggle="modal" data-bs-target="#exampleModal{{i.id}}" class="btn btn-primary">Delete</a></td>
+    </tr>
+    <div class="modal fade" id="exampleModal{{i.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">EpicKart</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+          Are you sure you want to remove this item ?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <a class='btn btn-secondary' href="{% url 'del_prod' i.id %}">OK</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  {% endfor %}
+  
+
+  </tbody>
+</table>
+{% if prod %}
+  {% else %}
+  <div class='row'>
+    <img src="{% static 'gif/empty-box.gif' %}" height='500px' alt="Nothing in Product table">
+  </div>
+  {% endif %}
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+     {% if prod.has_previous %}
+    <li class="page-item"><a class="page-link" href="?page={{prod.previous_page_number}}">Previous</a></li>
+    {% endif %}
+ {% if prod.has_next %}
+    <li class="page-item"><a class="page-link" href="?page={{prod.next_page_number}}">Next</a></li>
+    {% endif %}
+  </ul>
+</nav>
+</div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+  {% for i in messages %}
+  swal('Perfect',"{{i}}","success");
+{% endfor %}
+</script>
+
+{% endblock %}

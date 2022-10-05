@@ -1,0 +1,159 @@
+{% extends 'storeprofilebase.html' %}
+{% block title %}
+Edit Profile
+{% endblock %}
+
+{% block content %}
+<style>
+    body{
+    overflow-x:hidden;
+    }
+</style>
+
+<!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Offcanvas Menu Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__option">
+            <div class="offcanvas__links">
+                <a href="{% url 'logout' user.id %}">Logout</a>
+            </div>
+            <div class="offcanvas__top__hover">
+
+            </div>
+        </div>
+        <div class="offcanvas__nav__option">
+            <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
+            <a href="#"><img src="img/icon/heart.png" alt=""></a>
+            <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
+
+        </div>
+        <div id="mobile-menu-wrap"></div>
+        <div class="offcanvas__text">
+
+            <p color="white">{{user.name}}</p>
+        </div>
+    </div>
+    <!-- Offcanvas Menu End -->
+
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-7">
+                        <div class="header__top__left">
+
+                            <p color="white">{{user.name}}</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-5">
+                        <div class="header__top__right">
+                            <div class="header__top__links">
+
+                 <a href="{% url 'logout' user.id %}">Logout</a>
+
+
+
+                            </div>
+                            <div class="header__top__hover">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3">
+                    <div class="header__logo">
+                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <nav class="header__menu mobile-menu">
+                        <ul>
+                            <li><a href="./index.html">Home</a></li>
+                            <li><a href="{% url 'productall' %}">Shop</a></li>
+
+
+                            <li><a href="{% url 'profile' user.id %}">My Profile</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                    <div class="header__nav__option">
+                        <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
+                        <a href="#"><img src="img/icon/heart.png" alt=""></a>
+                        <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="canvas__open"><i class="fa fa-bars"></i></div>
+        </div>
+    </header>
+    <!-- Header Section End -->
+
+
+<section class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__text">
+<!--                        <h4>Shopping Cart</h4>-->
+<!--                        <div class="breadcrumb__links">-->
+<!--                            <a href="./index.html">Home</a>-->
+<!--                            <a href="{% url 'productall' %}">Shop</a>-->
+<!--                            <span>Shopping Cart</span>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<div class="row mt-5 d-flex justify-content-center">
+    <div class="card w-75 ">
+      <div class="card-body">
+        <h5 class="card-title">Update Profile</h5>
+<!--        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
+          <form method="post">
+              {% csrf_token %}
+              <div class="row">
+
+                      <div class="col">
+                           <label>Name</label>
+                          <br>
+                          <input class="form-control" name="name" value="{{user.name}}" type="text" size="5" placeholder="Full Name">
+                     
+                           <label>Email</label>
+                          <br>
+                          <input class="form-control" name="email" value="{{user.email}}"  type="email" size="5" placeholder="Email Address">
+                      
+                           <label>Mobile Number</label>
+                          <br>
+                          <input class="form-control" name="number" value="{{user.number}}" type="text" size="5" placeholder="Mobile Number">
+                      </div>
+                      <div class="col d-flex">
+                          <br>
+                          <button class="btn btn-dark" type="submit">
+                              Update
+                          </button>
+                          <a href="" class=" ms-5  btn btn-dark">Change Password</a>
+                      </div>
+
+             </div>
+          </form>
+     </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

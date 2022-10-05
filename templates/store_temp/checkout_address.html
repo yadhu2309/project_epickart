@@ -1,0 +1,238 @@
+{% extends 'checkout_temp.html' %}
+
+{% block check_out %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+    <!-- Checkout Section Begin -->
+    <section class="checkout spad">
+        <div class="container">
+            <div class="checkout__form">
+                <form action="" name='myForm' method="post" >
+                    {% csrf_token %}
+                    <div class="row">
+                     
+                        <div class="col-lg-8 col-md-6">
+                            
+                         
+                            <h6 class="checkout__title">Billing Details</h6>
+                            <div class="row">
+                              <a href="{% url 'address' %}" class='d-flex justify-content-end'>add</a>
+                                {% for i in address%}
+                                <div class="me-3 card" style="width: 18rem;">
+                                    <ul class="list-group list-group-flush">
+                                      <li class="list-group-item"><input type=radio name='address' value={{i.id}} required >{{i.first_name}} {{i.last_name}}
+                                    </li>
+                                      <li class="list-group-item">{{i.address_line_1}}</li>
+                                      <li class="list-group-item">{{i.address_line_2}}</li>
+                                      <li class="list-group-item">{{i.country}}</li>
+                                      <li class="list-group-item">{{i.state}}</li>
+                                      <li class="list-group-item">{{i.city}}</li>
+                                    </ul>
+                                  </div>
+                                
+                                {% endfor %}
+
+                           
+                            </div>
+
+                        </div>
+                
+                        
+                          
+
+                        <div class="col-lg-4 col-md-6">
+                            <div class="checkout__order">
+                              <div class="cart__discount">
+                                <h6>Discount codes</h6>
+                                {% comment %} <form action="" method='post'>
+                                  {% csrf_token %}
+                                    <input type="text" name='code' placeholder="Coupon code">
+                                    <button type="submit">Apply</button>
+                                </form> {% endcomment %}
+                                <a href="{% url 'apply' %}" class='btn btn-dark'>Apply Coupon</a>
+                                
+                                <div style="display:none{% if messages %} display:block {% endif %}" class=" mt-3 alert alert-danger" role="alert">
+                                  {% for i in messages%}{{i}}{% endfor %}
+                                </div>
+                            </div>
+                                <h4 class="order__title">Your order</h4>
+                                <div class="checkout__order__products">Product <span>Total</span></div>
+                                <ul class="checkout__total__products">
+                                    {% for i in cart %}
+                                    {% if user.id == i.uid_id %}
+                                    <li>{{i.pid.cid.cate_name | upper}} {{i.pid.series |upper}} <span>{{i.total_price}}</span></li>
+                                    {% endif %}
+                                    {% endfor %}
+                                </ul>
+                                <ul class="checkout__total__all">
+                                    {% if coupon == 0 %}
+                                    <li>Total <span>₹{{actual_amt}}</span></li>
+                                    {% else %}
+                                    <li>Total <span>₹{{actual_amt}}</span></li>
+                                    <li>Discount <span>₹{{discount}}</span></li>
+                                    <li>Grand Total <span>₹{{amt}}</span></li>
+                                    {% endif %}
+                                    
+                                </ul>
+                                <div class="checkout__input__checkbox">
+
+                                </div>
+                                <p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt
+                                ut labore et dolore magna aliqua.</p>
+                                {% if wallet and wallet.money >= 100 %}<input type='checkbox' name='wallet'>Use Wallet(₹{{wallet.money}}){% endif %}
+                                <div class="form-check">
+                                    <input class="form-check-input"  value="COD" type="radio" name="payment" id="cod" required>
+                                    <label class="form-check-label" for="cod">
+                                        Cash on delivery
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="radio" value='Paypal' name='payment' id="paypal" required>
+                                    <label class="form-check-label" for="paypal">
+                                        Paypal
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="radio" value='rayzorpay' name='payment' id="rayzorpay" required>
+                                    <label class="form-check-label" for="rayzorpay">
+                                        Razorpay
+                                    </label>
+                                  </div>
+                                {% comment %} <div class="checkout__input__checkbox">
+                                    <label for="payment">
+                                        
+                                        <input type="radio"   >
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <div class="checkout__input__checkbox">
+                                    <label for="paypal">
+                                       
+                                        <input type="radio"   value='Paypal' >
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div> {% endcomment %}
+                                <button type="submit" onclick="return validate()" class="site-btn">PLACE ORDER</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- Checkout Section End -->
+
+   <!-- Button trigger modal -->
+  
+  <!-- Modal -->
+  <!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <script>
+        function validate(){
+  
+
+            var fname = document.myForm.fname.value;
+            var lname = document.myForm.lname.value;
+            var country = document.myForm.country.value;
+            var address = document.myForm.address.value;
+            var address1 = document.myForm.address1.value;
+            var city = document.myForm.city.value
+            var state = document.myForm.state.value
+            var zip = document.myForm.zip.value
+            var email = document.myForm.email.value;
+            var phone = document.myForm.phone.value
+
+            
+
+          
+          
+            
+            var text;
+            if(fname.length < 3 || fname.startsWith(" ") || !isNaN(fname)){
+              text = "Please Enter valid Name";
+              document.getElementById("fname").innerHTML = text;
+              return false;
+            }
+           else if(lname.length < 3 || lname.startsWith(" ") || !isNaN(lname)){
+                text = "Please Enter valid Name";
+                document.getElementById("lname").innerHTML = text;
+                return false;
+              }
+              else if(address.startsWith(" ") || address.length == 0){
+                text = "Please Enter address ";
+                document.getElementById("address").innerHTML = text;
+                return false;
+              }
+              else if(address1.startsWith(" ") || address.length == 0){
+                text = "Please Enter address ";
+                document.getElementById("address1").innerHTML = text;
+                return false;
+              }
+              else if(zip.startsWith(" ") || zip.length==0 || isNaN(zip)){
+                text = "Please Enter valid zip";
+                document.getElementById("zip").innerHTML = text;
+                return false;
+              }
+              else if(phone.startsWith(" ") || phone.length >10 || phone.length<10 || phone.length == 0 || isNaN(phone)){
+                text = "Please Enter Phone number ";
+                document.getElementById("phone").innerHTML = text;
+                return false;
+              }
+          
+          
+           else if(email.indexOf("@") == -1 || email.startsWith(" ")){
+              text = "Please Enter valid Email";
+              document.getElementById("email").innerHTML = text;
+              return false;
+            }
+           
+           else if(country.length == 0 ||country.startsWith(" ")){
+              text = "Please Enter Country name ";
+              document.getElementById("country").innerHTML = text;
+              return false;
+            }
+            else if(state.startsWith(" ") || state.length == 0){
+                text = "Please Enter State name ";
+                document.getElementById("state").innerHTML = text;
+                return false;
+              }
+              else if(city.startsWith(" ") || city.length == 0){
+                text = "Please Enter City name";
+                document.getElementById("city").innerHTML = text;
+                return false;
+              }
+            
+            else{
+            return true;
+            }
+          }
+    </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% comment %} <script>
+  {% for i in messages %}
+  swal('Perfect',"{{i}}","warning");
+{% endfor %}
+</script> {% endcomment %}
+{% endblock %}

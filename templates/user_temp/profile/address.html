@@ -1,0 +1,174 @@
+{% extends 'checkout_temp.html' %}
+{% block breadcrumb %}
+<h4>EpicKart</h4>
+<div class="breadcrumb__links">
+ <a href="#">My Profile</a>
+
+               <span>Add Address</span>
+                </div>
+{% endblock %}
+
+{% block check_out %}
+
+    <!-- Checkout Section Begin -->
+    <section class="checkout spad">
+        <div class="container">
+            <div class="checkout__form">
+                <form action="" name='myForm' method="post" >
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-lg-8 col-md-6">
+                            
+                            <h6 class="checkout__title">Add Address</h6>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Fist Name<span>*</span></p>
+                                        <input type="text" name="fname">
+                                        <p style='color:red' id="fname"></p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Last Name<span>*</span></p>
+                                        <input type="text" name="lname">
+                                        <p style='color:red' id="lname"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="checkout__input">
+                                <p>Country<span>*</span></p>
+                                <input type="text" name="country">
+                                <p style='color:red' id="country"></p>
+                            </div>
+                            <div class="checkout__input">
+                                <p>Address<span>*</span></p>
+                                <input type="text" placeholder="Street Address" name="address" class="checkout__input__add">
+                                <input type="text" placeholder="Apartment, suite, unite ect (optinal)" name="address1">
+                                <p style='color:red' id="address"></p>
+                                <p style='color:red' id="address1"></p>
+                            </div>
+                            <div class="checkout__input">
+                                <p>Town/City<span>*</span></p>
+                                <input type="text" name="city">
+                                <p style='color:red' id="city"></p>
+                            </div>
+                            <div class="checkout__input">
+                                <p>Country/State<span>*</span></p>
+                                <input type="text" name="state">
+                                <p style='color:red' id="state"></p>
+                            </div>
+                            <div class="checkout__input">
+                                <p>Postcode / ZIP<span>*</span></p>
+                                <input type="text" name="zip">
+                                <p style='color:red' id="zip"></p>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Phone<span>*</span></p>
+                                        <input type="text" name="phone">
+                                        <p style='color:red' id="phone"></p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Email<span>*</span></p>
+                                        <input type="text" name="email">
+                                        <p style='color:red' id="email"></p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            
+                                <button type="submit" onclick="return validate()" class="site-btn">SUBMIT</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- Checkout Section End -->
+    <script>
+        function validate(){
+  
+
+            var fname = document.myForm.fname.value;
+            var lname = document.myForm.lname.value;
+            var country = document.myForm.country.value;
+            var address = document.myForm.address.value;
+            var address1 = document.myForm.address1.value;
+            var city = document.myForm.city.value
+            var state = document.myForm.state.value
+            var zip = document.myForm.zip.value
+            var email = document.myForm.email.value;
+            var phone = document.myForm.phone.value
+
+            
+
+          
+          
+            
+            var text;
+            if(fname.length < 3 || fname.startsWith(" ") || !isNaN(fname)){
+              text = "Please Enter valid Name";
+              document.getElementById("fname").innerHTML = text;
+              return false;
+            }
+           else if(lname.length < 3 || lname.startsWith(" ") || !isNaN(lname)){
+                text = "Please Enter valid Name";
+                document.getElementById("lname").innerHTML = text;
+                return false;
+              }
+              else if(address.startsWith(" ") || address.length == 0){
+                text = "Please Enter address ";
+                document.getElementById("address").innerHTML = text;
+                return false;
+              }
+              else if(address1.startsWith(" ") || address.length == 0){
+                text = "Please Enter address ";
+                document.getElementById("address1").innerHTML = text;
+                return false;
+              }
+              else if(zip.startsWith(" ") || zip.length==0 || isNaN(zip)){
+                text = "Please Enter valid zip";
+                document.getElementById("zip").innerHTML = text;
+                return false;
+              }
+              else if(phone.startsWith(" ") || phone.length >10 || phone.length<10 || phone.length == 0 || isNaN(phone)){
+                text = "Please Enter Phone number ";
+                document.getElementById("phone").innerHTML = text;
+                return false;
+              }
+          
+          
+           else if(email.indexOf("@") == -1 || email.startsWith(" ")){
+              text = "Please Enter valid Email";
+              document.getElementById("email").innerHTML = text;
+              return false;
+            }
+           
+           else if(country.length == 0 ||country.startsWith(" ")){
+              text = "Please Enter Country name ";
+              document.getElementById("country").innerHTML = text;
+              return false;
+            }
+            else if(state.startsWith(" ") || state.length == 0){
+                text = "Please Enter State name ";
+                document.getElementById("state").innerHTML = text;
+                return false;
+              }
+              else if(city.startsWith(" ") || city.length == 0){
+                text = "Please Enter City name";
+                document.getElementById("city").innerHTML = text;
+                return false;
+              }
+            
+            else{
+            return true;
+            }
+          }
+    </script>
+{% endblock %}

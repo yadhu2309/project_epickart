@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}
+Coupon
+{% endblock title %}
+{% block content %}
+<style>
+.pop-div{
+  animation-name: example;
+  animation-duration: 4s;
+}
+@keyframes example {
+  from {display:hide ;}
+  to {display: hide;}
+}
+</style>
+{% include 'sidebar.html' %}
+
+ <div id="content" style='background-color:#a3a3a2;' class="p-4 p-md-5 pt-5">
+    <h2 class="mb-4">Coupon</h2>
+    <div class="d-flex justify-content-end align-items-end">
+      {% comment %} <div style="display:none {% if messages %}display:block {% endif %}" class="alert alert-success pop-div" role="alert">
+        {% for i in messages%} {{i}} {% endfor %}
+      </div> {% endcomment %}
+        <span class="row text-end ">
+            <a href="{% url 'coupon_add' %}" class='btn btn-dark'>ADD COUPON</a>
+        </span>
+    </div>
+    <div class='row'> 
+    {% for i in coupon %}
+    <div class="card me-5 mt-3 shadow border-0" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{i.name}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">code:{{i.code}}</h6>
+          <p>₹ {{i.discount_amount}}</p>
+          <p class="card-text">{{i.description}}</p>
+          
+          <a href="{% url 'coupon_delete' i.id %}" class="btn btn-outline-dark">Delete</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+ </div>
+ <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+  {% for i in messages %}
+  swal('Perfect',"{{i}}","success");
+{% endfor %}
+</script>
+
+{% endblock content %}

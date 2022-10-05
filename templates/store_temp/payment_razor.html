@@ -1,0 +1,257 @@
+{% extends 'storeprofilebase.html' %}
+{% block title %}
+Order
+{% endblock %}
+
+{% block content %}
+<style>
+    body{
+    overflow-x:hidden;
+    }
+</style>
+
+<!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Offcanvas Menu Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__option">
+            <div class="offcanvas__links">
+                <a href="">Logout</a>
+            </div>
+            <div class="offcanvas__top__hover">
+
+            </div>
+        </div>
+        <div class="offcanvas__nav__option">
+            {% comment %} <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
+            <a href="#"><img src="img/icon/heart.png" alt=""></a>
+            <a href="#"><img src="img/icon/cart.png" alt="">  {% endcomment %}
+        </div>
+        <div id="mobile-menu-wrap"></div>
+        <div class="offcanvas__text">
+
+            <p color="white"></p>
+        </div>
+    </div>
+    <!-- Offcanvas Menu End -->
+
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-7">
+                        <div class="header__top__left">
+
+                            <p color="white"></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-5">
+                        <div class="header__top__right">
+                            <div class="header__top__links">
+
+                 
+
+
+
+                            </div>
+                            <div class="header__top__hover">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3">
+                    <div class="header__logo">
+                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <nav class="header__menu mobile-menu">
+                        <ul>
+                            <li><a href="{% url 'user_index' %}">Home</a></li>
+                            <li><a href="{% url 'user_home'%}">Shop</a></li>
+
+
+                            {% comment %} <li><a href="./contact.html">Contacts</a></li> {% endcomment %}
+                            
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                    <div class="header__nav__option">
+                        {% comment %} <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
+                        <a href="#"><img src="img/icon/heart.png" alt=""></a>
+                        <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a> {% endcomment %}
+
+                    </div>
+                </div>
+            </div>
+            <div class="canvas__open"><i class="fa fa-bars"></i></div>
+        </div>
+    </header>
+    <!-- Header Section End -->
+
+
+<section class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__text">
+<!--                        <h4>Shopping Cart</h4>-->
+<!--                        <div class="breadcrumb__links">-->
+<!--                            <a href="./index.html">Home</a>-->
+<!--                            <a href="{% url 'productall' %}">Shop</a>-->
+<!--                            <span>Shopping Cart</span>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="shopping-cart spad">
+
+        <div style="margin-left:10%;border:none;" class="card shadow w-50">
+            <div class="card-body">
+              <h5 class="card-title">Address</h5>
+             {{address.first_name | upper}} {{address.last_name |upper}}<br>
+             {{address.phone}}<br>
+             {{address.email}}<br>
+             {{address.address_line_1}}<br>
+             {{address.address_line_2}},<br>
+             {{address.country}},{{address.state}},{{address.city}}
+             {{address.zip_code}}
+             
+
+            </div>
+          </div>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="shopping__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            <p color="red">{{message}}</p>
+                            </thead>
+                            <tbody>
+
+                            {% for i in cart %}
+
+                              
+
+                                <tr>
+                                    <td class="product__cart__item">
+                                        <div class="product__cart__item__pic">
+                                            <img src="{{i.pid.image.url}}" height="20%" width="30%" alt="">
+                                            <div class="d-flex justify-content-between">
+                                                <h6>{{i.pid.cid.cate_name | upper}} {{i.pid.series |upper}}</h6>
+                                             </div>
+                                            <h5> ₹ {{i.pid.price}}</h5>
+                                        </div>
+                                        <div class="product__cart__item__text">
+
+                                        </div>
+                                    </td>
+                                    <td class="">
+                                        <div class="">
+
+                                            
+                                                <span>{{i.qty}}</span>
+
+                                        </div>
+                                    </td>
+                                    <td class="cart__price">₹ {{i.total_price}}</td>
+                                   
+                                </tr>
+                             
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="continue__btn">
+                                <a href="{% url 'user_home' %}">Continue Shopping</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+<!--                            <div class="continue__btn update__btn">-->
+<!--                                <a href="#"><i class="fa fa-spinner"></i> Update cart</a>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="cart__discount">
+                        
+                    </div>
+                    <div class="cart__total">
+                        <h6>Cart total</h6>
+                        <ul>
+
+                            <li>Total <span>₹ {{Grand_total}}
+                            </span></li>
+                        </ul>
+                        <button id="rzp-button1">Pay</button>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+   
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+    "key": "rzp_test_xezKLgYoa79lsJ", // Enter the Key ID generated from the Dashboard
+    "amount": "{{payment.amount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Ecomm",
+    "description": "Purchases",
+    "image": "https://example.com/your_logo",
+    "order_id": "{{payment.id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 2
+    "handler": function (response){
+       window.location.href = "{% url 'payment_complete_razor' id %}"
+    },
+    
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+});
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
+
+   
+    {% endblock %}

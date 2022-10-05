@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}
+Sales Report
+{% endblock %}
+{% block content %}
+{% include 'sidebar.html' %}
+<div id="content" style='background-color:#a3a3a2;' class="p-4 p-md-5 pt-5">
+   <h2 class="mb-4">Sales Report</h2>
+   
+ <div class='d-flex justify-content-between'>
+   <div class='d-flex align-items-center'>
+    <a href="{% url 'sales_report_date' %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+      </svg></a>
+   </div>
+    
+
+</div>
+  <table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Date</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Product Price</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for i in sales %}
+      <tr>
+        <th scope="row">{{i.id}}</th>
+        <td>{{i.productName}} {{i.categoryName}}</td>
+        <td>{{i.date}}</td>
+        <td>{{i.quantity}}</td>
+        <td>₹ {{i.productPrice}}</td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <td colspan='4'>Total Amount</td>
+        <td>₹ {{total}}</td>
+      </tr>
+      
+    </tbody>
+  </table>
+
+</div>
+
+
+{% endblock %}

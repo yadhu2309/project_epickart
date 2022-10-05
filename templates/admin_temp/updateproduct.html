@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Update product
+{% endblock %}
+
+{% block content %}
+{% include 'sidebar.html' %}
+<div id="content" style='background-color:#a3a3a2;' class="p-4 p-md-5 pt-5">
+        <h2 class="mb-4">Edit Product</h2>
+    <hr>
+    <div class="container">
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+        <div class="row">
+    <div class="col"><label>Category</label>
+
+    <select class="form-control" name="sel_opt">
+
+        {% for j in cate_select %}
+
+            <option>{{j.cate_name}}</option>
+
+        {% endfor %}
+
+        </select></div>
+        </div>
+        <br>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <label>Brand</label>
+                <input class="form-control" value="{{prod.product_name}}" name="brand" type="text" placeholder="">
+            </div>
+        <div class="col">
+             <label>Series</label>
+        <input class="form-control" value="{{prod.series}}" name="series" type="text" placeholder="">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col"><label>Price</label>
+        <input class="form-control" value="{{prod.price}}" name="price"  type="text" placeholder="">
+            </div>
+        <div class="col"> <label>Stock</label>
+        <input class="form-control" value="{{prod.stock}}" name="stock" type="number" placeholder="">
+        </div>
+        </div>
+         <label>Product Description</label>
+        <textarea class="form-control" value="{{prod.descrip}}" name="desc" aria-label="With textarea"></textarea>
+
+    <hr>
+    <div class="row text-center"><h2 class="mb-4">Specification</h2></div>
+        <hr>
+<!--         <h3 class="mb-4">General Details</h3>-->
+<!--        <div class="row">-->
+<!--            <div class="col">-->
+<!--                 <label>Model Number</label>-->
+<!--        <input class="form-control" name="mnum" value="{{prod." type="text" placeholder="">-->
+<!--           </div>-->
+<!--            <div class="col">-->
+<!--                <label>Model Name</label>-->
+<!--        <input class="form-control" name="mname" type="text" placeholder="">-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--         <div class="row">-->
+<!--             <div class="col">-->
+<!--                 <label>Color</label>-->
+<!--        <input class="form-control" name="color" type="text" placeholder="">-->
+<!--             </div>-->
+<!--             <div class="col">-->
+<!--                 <label>Battery Cell</label>-->
+<!--        <input class="form-control" name="bcell" type="number" placeholder="">-->
+<!--             </div>-->
+<!--         </div>-->
+
+
+
+    <hr>
+          <h2 class="mb-4">Processor and Memory</h2>
+        <div class="row">
+            <div class="col">
+                <label>Processor Brand</label>
+        <input class="form-control" value="{{prod.p_brand}}" name="pbrand" type="text" placeholder="">
+            </div>
+         <div class="col">
+              <label>Processor Name</label>
+        <input class="form-control" value="{{prod.p_name}}" name="pname" type="text" placeholder="">
+         </div>
+
+        </div>
+        <div class="row">
+            <div class="col">
+                 <label>SSD</label>
+        <input class="form-control" value="{{prod.ssd}}" name="ssd" type="text" placeholder="">
+            </div>
+            <div class="col">
+                <label>Storage</label>
+                <input class="form-control" value="{{prod.mem}}" name="mem" type="text">
+            </div>
+            <div class="col">
+                <label>RAM</label>
+        <input class="form-control" value="{{prod.ram}}" name="ram" type="text" placeholder="">
+            </div>
+        </div>
+
+         <div class="row">
+             <div class="col">
+                  <label>RAM Type</label>
+        <input class="form-control" value="{{prod.rtype}}" name="rtype" type="text" placeholder="">
+             </div>
+             <div class="col">
+                  <label>Operating System</label>
+        <input class="form-control" value="{{prod.os}}" name="os" type="text" placeholder="">
+
+             </div>
+         </div>
+        <hr>
+        <h2 class="mb-4">Images</h2>
+        <div class="row">
+            <div class="col">
+                <label>Thumbnail</label>
+                <input type="file" class="form-control" name="image">
+            </div>
+
+        </div>
+        <br>
+      <div class="row ">
+          <div class="col">
+
+          </div>
+          <div class="col"> <input type="submit" class="form-control btn btn-dark" value="Submit"></div>
+          <div class="col">
+
+          </div>
+
+
+      </div>
+
+    </form>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+{% for i in s %}
+<img src="{{i.sub_cate_image}}">
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,45 @@
+<div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar">
+				<div class="custom-menu">
+					<button type="button" id="sidebarCollapse" class="btn btn-primary">
+	          <i class="fa fa-bars" style="color:red"></i>
+	          <span class="sr-only">Toggle Menu</span>
+	        </button>
+        </div>
+	  		<h1><a href="index.html" style="text-decoration:none" class="logo">EPICKART</a></h1>
+        <ul class="list-unstyled components mb-5">
+          <li class="">
+            <a href="{% url 'dashboard' %}" style="text-decoration:none"><span class="fa fa-home mr-3"></span> Homepage</a>
+          </li>
+          <li>
+              <a href="{% url 'user_manage' %}" style="text-decoration:none"><span class="fa fa-user mr-3"></span>User</a>
+          </li>
+          <li>
+            <a href="{% url 'cate_view' %}" style="text-decoration:none"><span class="fa fa-sticky-note mr-3"></span> Category</a>
+          </li>
+          <li>
+            <a href="{% url 'product'%}" style="text-decoration:none"><span class="fa fa-sticky-note mr-3"></span> Product</a>
+          </li>
+          <li>
+            <a href="{% url 'order_view_admin' %}" style="text-decoration:none"><span class="fa fa-paper-plane mr-3"></span> Order</a>
+          </li>
+          <li>
+            <a href="{% url 'sales_report_date' %}" style="text-decoration:none"><span class="fa fa-paper-plane mr-3"></span> Sales Report</a>
+          </li>
+          <li>
+            <a href="{% url 'coupon_view' %}" style="text-decoration:none"><span class="fa fa-paper-plane mr-3"></span> Coupon</a>
+          </li>
+          <li>
+            <a href="{% url 'offer_view' %}" style="text-decoration:none"><span class="fa fa-paper-plane mr-3"></span> Offer</a>
+          </li>
+          <li>
+            <a href="{% url 'banner_view' %}" style="text-decoration:none"><span class="fa fa-paper-plane mr-3"></span> Banner</a>
+          </li>
+          
+        </ul>
+      
+          <a class="ms-5 btn btn-warning" href="{% url 'admin_logout' %}">Logout</a>
+        
+                
+
+    	</nav>

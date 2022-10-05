@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+verification
+
+{% endblock %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <label>enter mobile number</label>
+    <input type="text" name="mob" required>
+
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}

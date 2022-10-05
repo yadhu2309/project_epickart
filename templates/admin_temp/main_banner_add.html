@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+add product
+{% endblock %}
+
+{% block content %}
+{% include 'sidebar.html' %}
+<div id="content" style='background-color:#a3a3a2;' class="p-4 p-md-5 pt-5">
+        <h2 class="mb-4">Add Product</h2>
+    
+    <div class="container">
+    <form method="post" name='myForm' enctype="multipart/form-data">
+    {% csrf_token %}
+        <div class="row">
+            
+        <div class="col">
+             <label>Title</label>
+        <input class="form-control" name="head" type="text" placeholder="" required>
+        <span style='color:red' id="error2"></span>
+            </div>
+        </div>
+
+         <label>Description</label>
+        <textarea class="form-control" name="desc" aria-label="With textarea" required></textarea>
+        <span style='color:red' id="error5"></span>
+
+    
+        <hr>
+        <h2 class="mb-4">Images</h2>
+        <div class="row">
+            
+            <div class="col">
+                <input type="file" class="form-control" required name="image1">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <input type="file" class="form-control" required name="image2">
+            </div>
+            <div class="col">
+                <input type="file" class="form-control" required name="image3">
+            </div>
+        </div>
+        <br>
+      <div class="row ">
+          <div class="col">
+
+          </div>
+          <div class="col"> <input type="submit" onclick="return validate()" class="form-control btn btn-dark" value="ADD"></div>
+          <div class="col">
+
+          </div>
+
+
+      </div>
+
+    </form>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script defer src="https://cdn.crop.guide/loader/l.js?c=CCZKCF"></script>
+<!--sweetalert-->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+  {% for i in messages %}
+  swal("{{i}}");
+{% endfor %}
+</script>
+<!---------------->
+
+{% for i in s %}
+<img src="{{i.sub_cate_image}}">
+{% endfor %}
+
+<!--validation-->
+<script>
+    function validate(){
+
+
+        var brand = document.myForm.brand.value;
+        var series = document.myForm.series.value;
+        var price = document.myForm.price.value;
+        var stock = document.myForm.stock.value;
+        var desc = document.myForm.desc.value;
+        var pbrand = document.myForm.pbrand.value;
+        var pname = document.myForm.pname.value;
+        var ssd = document.myForm.ssd.value;
+        var mem = document.myForm.mem.value;
+        var ram = document.myForm.ram.value;
+        var rtype = document.myForm.rtype.value;
+        var os = document.myForm.os.value
+console.log(pname)
+        
+
+      
+      
+        
+        var text;
+        if(brand.length == 0 || brand.startsWith(" ") || !isNaN(brand)){
+          text = "Please Enter valid  Brand Name";
+          //alert(text)
+          document.getElementById("error1").innerHTML = text;
+          return false;
+        }
+        if(series.length == 0 || series.startsWith(" ")){
+            text = "Please Fill this Field";
+            //alert(text)
+            document.getElementById("error2").innerHTML = text;
+            return false;
+          }
+          if(price.length == 0 || price.startsWith(" ")){
+            text = "Please Enter valid Price";
+            //alert(text)
+            document.getElementById("error3").innerHTML = text;
+            return false;
+          }
+          if(stock.length == 0 || stock.startsWith(" ")){
+            text = "Please Enter Fill this Field";
+            //alert(text)
+            document.getElementById("error4").innerHTML = text;
+            return false;
+          }
+          if(desc.length == 0 || desc.startsWith(" ") || desc.length<=15){
+            text = "Please Enter Description including more than 15 charaters";
+            //alert(text)
+            document.getElementById("error5").innerHTML = text;
+            return false;
+          }
+          if(pbrand.length == 0 || pbrand.startsWith(" ")){
+            text = "Please Enter valid  Brand Name";
+            //alert(text)
+            document.getElementById("error6").innerHTML = text;
+            return false;
+          }
+          if(pname.length == 0 || pname.startsWith(" ")){
+            text = "Please Enter valid Proccessor Name";
+            //alert(text)
+            document.getElementById("error7").innerHTML = text;
+            return false;
+          }
+          if(ssd.length == 0 || ssd.startsWith(" ")){
+            text = "Please Fill this Field";
+            //alert(text)
+            document.getElementById("error8").innerHTML = text;
+            return false;
+          }
+          if(mem.length == 0 || mem.startsWith(" ")){
+            text = "Please Fill this Field ";
+            //alert(text)
+            document.getElementById("error9").innerHTML = text;
+            return false;
+          }
+          if(ram.length == 0 || ram.startsWith(" ")){
+            text = "Please Fill this Field";
+            //alert(text)
+            document.getElementById("error10").innerHTML = text;
+            return false;
+          }
+          if(rtype.length == 0 || rtype.startsWith(" ")){
+            text = "Please Fill this Field";
+            //alert(text)
+            document.getElementById("error11").innerHTML = text;
+            return false;
+          }
+          if(os.length == 0 || os.startsWith(" ")){
+            text = "Please Enter valid  Operating System";
+            //alert(text)
+            document.getElementById("error12").innerHTML = text;
+            return false;
+          }
+        else{
+        return true;
+        }
+      }
+</script>
+
+
+{% endblock %}

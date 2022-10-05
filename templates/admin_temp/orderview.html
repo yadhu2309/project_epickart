@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}
+order view
+{% endblock %}
+
+{% block content %}
+{% include 'sidebar.html' %}
+<div id="content" style='background-color:#a3a3a2;' class="p-4 p-md-5 pt-5">
+        <h2 class="mb-4">Order</h2>
+  <nav aria-label="Page navigation example">
+  <ul class="pagination">
+     {% if order.has_previous %}
+    <li class="page-item"><a class="page-link" href="?page={{order.previous_page_number}}">Previous</a></li>
+    {% endif %}
+ {% if order.has_next %}
+    <li class="page-item"><a class="page-link" href="?page={{order.next_page_number}}">Next</a></li>
+    {% endif %}
+  </ul>
+</nav>
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">order_id</th>
+      <th scope="col">order_number</th>
+      <th scope="col">total_price</th>
+      <th scope="col">status</th>
+      <th scope="col">user_email</th>
+
+
+
+    </tr>
+  </thead>
+  <tbody>
+{% for i in order %}
+    <tr>
+
+      <td style="{% if i.status == 'Cancelled'%} color:red {% endif %}">{{i.id}}</td>
+      <td style="{% if i.status == 'Cancelled'%} color:red {% endif %}">{{i.order_number}}{{i.id}}</td>
+      <td style="{% if i.status == 'Cancelled'%} color:red {% endif %}">{{i.order_total}}</td>
+      <td style="{% if i.status == 'Cancelled'%} color:red {% endif %}">{{i.status}}</td>
+      <td style="{% if i.status == 'Cancelled'%} color:red {% endif %}">{{i.user.email}}</td>
+   
+      <td><a href="{% url 'order_detail' i.id %}" class="btn btn-primary">view</a></td>
+      <td>
+        <a href="{% url 'cancel_order' i.id %}"
+         style=" {% if i.status == 'Cancelled' %}display:none{% endif %} 
+         {% if i.status == 'Out of delivery' or i.status == 'Delivered' %}display:none{% endif %}"
+          class="btn btn-primary">
+          Cancel
+      </a>
+    </td>
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+
+</div>
+
+{% endblock %}

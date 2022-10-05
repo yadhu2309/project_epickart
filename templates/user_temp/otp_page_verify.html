@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+verification
+
+{% endblock %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <label>enter otp</label>
+    <input type="text" name="otp" required>
+
+    <a><button type="submit">Submit</button></a>
+</form>
+{% endblock %}

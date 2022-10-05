@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}
+success
+{% endblock%}
+
+{% block content %}
+<div style="height:100vh" class="d-flex align-items-center justify-content-center">
+    <div class="card text-center " style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{message}}</h5>
+          
+          <a href="{% url 'user_home' %}" class="btn px-5 btn-primary">Ok</a>
+        </div>
+      </div>
+</div>
+{% endblock%}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+category management
+{% endblock %}
+
+{% block content %}
+{% include 'sidebar.html' %}
+ <!-- Page Content  -->
+
+      <div id="content" style='background-color:#a3a3a2;' class="p-4 p-md-5 pt-5">
+        <h2 class="mb-4">Category</h2>
+          <div class="container" >
+<form name='' action="" method="post">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col"> <label>Add Brand</label></div>
+        <div class="col"></div>
+
+    </div>
+
+    <div class="row">
+        <div class="col">
+
+        <input type="text" class="form-control" name="cate_name">
+        </div>
+        <div class="col">
+    <input type="submit" class="btn btn-dark" value="Add">
+    </div>
+    </div>
+
+</form>
+          </div>
+      </div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}
+sign up
+{% endblock %}
+
+{% block content %}
+<div class="container ">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card border-0 shadow rounded-3 my-5">
+          <div class="card-body p-4 p-sm-5">
+            <h5 class="card-title text-center text-success mb-5 fw-light fs-5">SignUp</h5>
+            <form method="post">
+                 {% csrf_token %}
+              <div class="form-floating mb-3">
+                <input type="text" name="uname" class="form-control" id="floatingInput" placeholder="Name" required> 
+                <label for="floatingInput">Name</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" name="mobile" class="form-control" id="" placeholder="Mobile" required>
+                <label for="">Mobile</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="email" name="email" class="form-control" id="floatingPassword" placeholder="Email" required>
+                <label for="floatingPassword">Email</label>
+
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" name="refer_code" class="form-control" id="" placeholder="Referal Code" >
+                <label for="">Referal Code</label>
+
+              </div>
+                <div class="form-floating mb-3">
+                <input type="password" name="psw" class="form-control" id=" " placeholder="Password" required>
+                <label for="">Password</label>
+
+              </div>
+
+
+                <div class="form-floating mb-3">
+                <input type="password" name="re_psw" class="form-control" id="" placeholder="Password" required>
+                <label for="floatingPassword">Retype-Password</label>
+
+              </div>
+
+
+              <div class="d-grid">
+                <button class="btn btn-outline-success btn-login text-uppercase fw-bold" type="submit">SignUp</button>
+              </div>
+
+
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

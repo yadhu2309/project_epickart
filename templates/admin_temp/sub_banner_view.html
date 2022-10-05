@@ -1,0 +1,43 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+banner_view
+{% endblock %}
+
+{% block content %}
+{% include 'sidebar.html' %}
+<div id="content" style='background-color:#a3a3a2;' class="p-4 p-md-5 pt-5">
+        <h2 class="mb-4">Banner</h2>
+        <a href="{% url 'sub_banner_add' %}" class='btn btn-dark'>Add Banner</a>
+        <div class='row'>
+        {% for i in banner %}
+
+        <div class="card mt-4 me-3" style="width: 18rem;">
+            <img class="card-img-top" src="{{i.banner1.url}}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">{{i.head1}}</h5>
+              <h5 class="card-title">{{i.head2}}</h5>
+              <h5 class="card-title">{{i.head3}}</h5>
+            </div>
+            
+            <div class="card-body">
+              <a href="#" class="card-link">Delete</a>
+              <a href="{% url 'sub_banner_select' i.id %}" class="card-link">Select</a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+    
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script defer src="https://cdn.crop.guide/loader/l.js?c=CCZKCF"></script>
+<!--sweetalert-->
+
+<!---------------->
+
+
+
+<!--validation-->
+
+{% endblock %}

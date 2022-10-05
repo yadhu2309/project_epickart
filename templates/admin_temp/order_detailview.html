@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}
+order_detail_view
+{% endblock %}
+
+{% block content %}
+{% include 'sidebar.html' %}
+<div id="content" style='background-color:#a3a3a2;' class="p-4 p-md-5 pt-5">
+        <h2 class="mb-4">Order Detail</h2>
+        <div class="row">
+        <div class="card border-0 shadow col" style="width: 10rem;">
+  <ul class="list-group list-group-flush">
+      <li class="list-group-item"><h4>Address</h4></li>
+    <li class="list-group-item">Name: {{order.first_name}} {{order.last_name}}</li>
+    <li class="list-group-item">Address: {{order.address_line_1}}<br>{{order.address_line_2}}</li>
+    <li class="list-group-item">Country: {{order.country}}</li>
+          <li class="list-group-item">State: {{order.state}}</li>
+          <li class="list-group-item">City: {{order.city}}</li>
+          <li class="list-group-item">Zip Code: {{order.zip_code}}</li>
+  </ul>
+</div>
+
+                    <div class="card ms-3 shadow border-0" style="width: 30rem;">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Ordered Date:{{order.created_at}}</li>
+    <li class="list-group-item"><label>Update Status</label></li>
+    <li class="list-group-item"><form method="post">
+                                        {% csrf_token %}
+
+                        <select name="status" class="form-select" aria-label="Default select example">
+                            {% if order.status == 'Cancelled' %}
+                            <option value="Cancelled">Cancelled</option>
+                            {% elif order.status == 'Shipped' %}
+                             <option value="Shipped">Shipped</option>
+                             <option value="Out of delivery">Out for delivery</option>
+                             {% elif order.status == 'Out of delivery' %}
+                             <option value="Out of delivery">Out for delivery</option>
+                             <option value="Delivered">Delivered</option>
+                             {% elif order.status == 'Delivered'%}
+                             <option value="Delivered">Delivered</option>
+                             {% else %}
+                             <option value='Confirmed'>Confirmed</option>
+                             <option value="Shipped">Shipped</option>
+                             <option value="Out of delivery">Out of delivery</option>
+
+  
+                          
+                            {% endif %}
+                        </select>
+                    <button type="submit" class="btn mt-3 btn-dark">Update</button>
+
+
+
+                                </form></li>
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+
+        <table class="table shadow table-dark mt-5">
+  <thead>
+    <tr>
+      <th scope="col">order_product_id</th>
+         <th scope="col">product</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Product_Price</th>
+      <th scope="col">Status</th>
+
+
+
+    </tr>
+  </thead>
+  <tbody>
+{% for i in order_product %}
+    <tr>
+
+      <td>{{i.id}}</td>
+       <td><img src="{{i.product.image.url}}" width="20%" heigth='20%' alt="none"></td>
+      <td>{{i.quantity}}</td>
+      <td>{{i.product_price}}</td>
+      <td>{{i.status}}</td>
+
+      
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+     {% if order_product.has_previous %}
+    <li class="page-item"><a class="page-link" href="?page={{order_product.previous_page_number}}">Previous</a></li>
+    {% endif %}
+ {% if order_product.has_next %}
+    <li class="page-item"><a class="page-link" href="?page={{order_product.next_page_number}}">Next</a></li>
+    {% endif %}
+  </ul>
+</nav>
+</div>
+{% endblock %}

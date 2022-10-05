@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block title %}
+Add coupon
+{% endblock %}
+{% block content %}
+{% include 'sidebar.html' %}
+<div id="content" style='background-color:#a3a3a2;' class="p-4 p-md-5 pt-5">
+   <h2 class="mb-4">ADD OFFER</h2>
+   <div class='row d-flex justify-content-center'>
+   <div class="card shadow  w-75">
+       <div class="card-body">
+         
+         <form name='myForm' method='post'>
+            {% csrf_token %}
+           <label>Offer Name</label>
+           <input class="form-control" type="text" name='Oname' placeholder="Offer Name" required>
+           <span style='color:red' id='Oname'>{{info}}</span>
+           <br>
+           <label>Product</label>
+          <select name='prod'>
+            {% for i in prod %}
+            <option value='{{i.id}}'>{{i.cid.cate_name}} {{i.series}}</option>
+            {% endfor %}
+          </select>
+          <br>
+           <label>Discount Amount</label>
+           <input class="form-control" type="number" name='Opercentage' min='20' max='70' placeholder="Discount Percentage" required>
+           <span style='color:red' id='Opercentage'></span>
+           <br>
+           <label>Valid Till</label>
+           <input class="form-control" type="date" name='valid'  required>
+           <br>
+           <div class="mb-3">
+               <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+               <textarea class="form-control" name='Odescription' id="exampleFormControlTextarea1" rows="3"></textarea>
+             </div>
+             <span style='color:red' id='Odescription'></span>
+            <input type='submit' value='ADD' onclick='' class='btn btn-primary'>
+         </form>
+         
+        
+       </div>
+     </div>
+   </div>
+     
+     
+
+</div>
+<script>
+  function validate(){
+   
+ 
+   var oname = document.myForm.Oname.value;
+     var ccode = document.myForm.Opercentage.value;
+     var odescription = document.myForm.Odescription.value;
+ 
+ 
+   
+   var text;
+   if(oname.startsWith(" ")){
+     text = "Please Enter Offer Name";
+     document.getElementById('Oname').innerHTML = text
+     return false;
+   }
+ 
+ 
+   if(ccode.startsWith(" ")){
+     text = "Please Enter Offer Amount ";
+     document.getElementById('Opercentage').innerHTML = text
+     return false;
+   }
+   
+   if(odescription.length <= 5||odescription.startsWith(" ")){
+     text = "Please Enter More Than 140 Characters";
+     document.getElementById('Odescription').innerHTML = text
+     return false;
+   }
+   else{
+   return true;
+   }
+ }
+ </script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+  {% for i in messages %}
+  swal('Perfect',"{{i}}","success");
+{% endfor %}
+</script>
+{% endblock %}

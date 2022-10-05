@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{%  block title %}
+homepage
+{% endblock %}
+{% block content %}
+
+
+{% include 'sidebar.html' %}
+<div id="content" style='background-color:#a3a3a2;' class="p-4 p-md-5 pt-5">
+        <h1></h1>
+        <div class="row mb-5">
+          <div class="col">
+            <div style="height:4rem" class="shadow bg-white card">
+              <div class=" d-flex card-body bg-white rounded shadow">
+                <span style="background-color:green;width:30%;height:10vh;color:white" class="d-flex  align-items-center justify-content-center rounded-circle">
+                  <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><g><rect fill="none" height="24" width="24"/></g><g><path d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M12,6c1.93,0,3.5,1.57,3.5,3.5S13.93,13,12,13 s-3.5-1.57-3.5-3.5S10.07,6,12,6z M12,20c-2.03,0-4.43-0.82-6.14-2.88C7.55,15.8,9.68,15,12,15s4.45,0.8,6.14,2.12 C16.43,19.18,14.03,20,12,20z"/></g></svg></span>
+                
+               <div class='row d-flex'><p class=" ms-2 card-text">Total Users </p> <p class='ms-4'>{{user}}</p></div>
+                
+                
+              </div>
+            </div>
+          </div>
+          <div class="col"> 
+            <div style="height:4rem" class="shadow bg-white card">
+              <div class=" d-flex card-body bg-white rounded shadow">
+                <span style="background-color:orange;width:30%;height:10vh;color:white" class="d-flex  align-items-center justify-content-center rounded-circle">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Bag Handle</title><path d="M80 176a16 16 0 00-16 16v216c0 30.24 25.76 56 56 56h272c30.24 0 56-24.51 56-54.75V192a16 16 0 00-16-16zM160 176v-32a96 96 0 0196-96h0a96 96 0 0196 96v32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><path d="M160 224v16a96 96 0 0096 96h0a96 96 0 0096-96v-16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg>
+                 </span>
+                 <div class='row d-flex'><p class=" ms-2 card-text">Total Products </p> <p class='ms-4'>{{total}}</p></div>
+                
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div style="height:4rem" class="shadow bg-white card">
+              <div class=" d-flex card-body bg-white rounded shadow">
+                <span style="background-color:Blue;width:30%;height:10vh;color:white" class="d-flex  align-items-center justify-content-center rounded-circle">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path d="M14.35 43.95q-1.5 0-2.55-1.05-1.05-1.05-1.05-2.55 0-1.5 1.05-2.55 1.05-1.05 2.55-1.05 1.45 0 2.525 1.05t1.075 2.55q0 1.5-1.05 2.55-1.05 1.05-2.55 1.05Zm20 0q-1.5 0-2.55-1.05-1.05-1.05-1.05-2.55 0-1.5 1.05-2.55 1.05-1.05 2.55-1.05 1.45 0 2.525 1.05t1.075 2.55q0 1.5-1.05 2.55-1.05 1.05-2.55 1.05Zm-22.6-33 5.5 11.4h14.4l6.25-11.4Zm2.1 22.6q-2.1 0-3.025-1.4-.925-1.4.025-3.15l3.2-5.9L6.45 7H4q-.6 0-1.025-.45-.425-.45-.425-1.1 0-.6.425-1.025Q3.4 4 4.05 4h3.4q.45 0 .8.225.35.225.55.625l1.45 3.1H39.7q1.6 0 2.025.975.425.975-.275 2.175L34.7 23.25q-.5.85-1.4 1.475-.9.625-1.95.625H16.2l-2.8 5.2h23.1q.6 0 1.025.45.425.45.425 1.05 0 .65-.425 1.075-.425.425-1.075.425Zm3.4-11.2h14.4Z"/></svg>
+                 </span>
+                 <div class='row d-flex'><p class=" ms-2 card-text">Total Orders </p> <p class='ms-4'>{{order}}</p></div>
+              
+              </div>
+            </div>
+          </div>
+          <div class="col mb-5 ">
+            <div style="height:4rem" class="shadow bg-white card">
+              <div class=" d-flex card-body bg-white rounded shadow">
+                <span style="background-color:#d16506;width:30%;height:10vh;color:white" class="d-flex  align-items-center justify-content-center rounded-circle">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path d="M27.95 43.15q-.9.9-2.175.9t-2.175-.9L4.85 24.4q-.5-.5-.675-1.05Q4 22.8 4 22.2V7q0-1.3.85-2.15Q5.7 4 7 4h15.2q.6 0 1.2.175t1.1.675L43.15 23.5q.95.95.95 2.225 0 1.275-.95 2.225ZM25.9 41.1l15.2-15.2L22.2 7H7v15.2ZM12.25 14.8q1.05 0 1.825-.775.775-.775.775-1.825 0-1.05-.775-1.825Q13.3 9.6 12.25 9.6q-1.05 0-1.825.775-.775.775-.775 1.825 0 1.05.775 1.825.775.775 1.825.775ZM7 7Z"/></svg>
+                 </span>
+                 <div class='row d-flex'><p class=" ms-2 card-text">Total Sales </p> <p class='ms-4'></p></div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='row d-flex justify-content-center'>
+          <div class='col'>
+        <div class="mt-5 card"  style="width: 50rem;">
+          <div class="card-body">
+            <div>
+              <canvas id="myChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+        
+      </div>
+      
+   
+      
+    </div>
+        
+          
+</div>
+<script>
+   /* const labels = [
+     
+    ];*/
+    
+//  var lab = {{user|safe}}
+    const data = {
+      labels: [{% for i in prod %}'{{i.cid.cate_name}}{{i.series}}',{%endfor%}] ,
+      datasets: [{
+        label: 'Most Ordered Product',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: [{% for i in order_count %}'{{i}}',{%endfor%}],
+      }]
+    };
+  
+    const config = {
+      type: 'bar',
+      data: data,
+      options: {}
+    };
+  </script>
+  <script>
+    const myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
+  </script>
+  <script>
+    /* const labels = [
+      
+     ];*/
+     
+ //  var lab = {{user|safe}}
+     const data = {
+       labels: [{% for i in cate %}'{{i.cate_name}}',{%endfor%}] ,
+       datasets: [{
+         label: 'Most Ordered Product',
+         backgroundColor: 'rgb(255, 99, 132)',
+         borderColor: 'rgb(255, 99, 132)',
+         data: [{% for i in cate_count %}'{{i}}',{%endfor%}],
+       }]
+     };
+   
+     const config = {
+       type: 'bar',
+       data: data,
+       options: {}
+     };
+   </script>
+   <script>
+     const myChart = new Chart(
+       document.getElementById('myChart1'),
+       config
+     );
+   </script>
+{% endblock %}

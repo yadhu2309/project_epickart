@@ -1,0 +1,97 @@
+ {% extends 'base.html' %}
+ {% block title %}
+ Add coupon
+ {% endblock %}
+ {% block content %}
+ {% include 'sidebar.html' %}
+ <div id="content" style='background-color:#a3a3a2;' class="p-4 p-md-5 pt-5">
+    <h2 class="mb-4">ADD COUPON</h2>
+    <div class='row d-flex justify-content-center'>
+    <div class="card shadow  w-75">
+        <div class="card-body">
+          
+          <form name='myForm' method='post'>
+             {% csrf_token %}
+            <label>Coupon Name</label>
+            <input class="form-control" type="text" name='cname' placeholder="Coupon Name" required>
+            <span style="color:red" id='cname'>{{info}}</span>
+            
+            <br>
+            <label>Coupon Code</label>
+            <input class="form-control" type="text" name='ccode' placeholder="Coupon Code" required>
+            <span  style="color:red" id='ccode'>{{info1}}</span>
+            <br>
+            <label>Discount Amount</label>
+            <input class="form-control" type="text" name='camount' placeholder="Discount Amount" required>
+            <span  style="color:red" id='camount'></span>
+            <br>
+            <label>Discount Percentage</label>
+            <input class="form-control" type="text" name='cpercentage' placeholder="Discount Percentage">
+            <br>
+            <label>Valid Till</label>
+            
+            <input class="form-control" type="date" name='valid' placeholder="Discount Percentage" required>
+            <br>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+                <textarea class="form-control" name='cdescription' id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div>
+              <span  style="color:red" id='cdescription'></span>
+              <br>
+             <input type='submit' value='ADD' onclick='return validate()' class='btn btn-primary'>
+          </form>
+          
+         
+        </div>
+      </div>
+    </div>
+      
+      
+
+ </div>
+ <script>
+ function validate(){
+  
+
+  var cname = document.myForm.cname.value;
+    var ccode = document.myForm.ccode.value;
+    var camount = document.myForm.camount.value;
+    var cdescription = document.myForm.cdescription.value;
+
+
+  
+  var text;
+  if( cname.startsWith(" ") ){
+    text = "Please Enter coupon Name";
+    document.getElementById('cname').innerHTML = text
+    return false;
+  }
+
+
+  if(ccode.startsWith(" ")){
+    text = "Please Enter Coupon Code ";
+    document.getElementById('ccode').innerHTML = text
+    return false;
+  }
+  if(camount.startsWith(" ")){
+    text = "Please Enter Correct Subject";
+    document.getElementById('camount').innerHTML = text
+    return false;
+  }
+  if(cdescription.length <= 5||cdescription.startsWith(" ")){
+    text = "Please Enter More Than 140 Characters";
+    document.getElementById('cdescription').innerHTML = text
+    return false;
+  }
+  else{
+  return true;
+  }
+}
+</script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+  {% for i in messages %}
+  swal('Perfect',"{{i}}","success");
+{% endfor %}
+</script>
+ {% endblock %}
