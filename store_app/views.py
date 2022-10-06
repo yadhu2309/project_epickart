@@ -1,4 +1,3 @@
-from unicodedata import category
 from django.shortcuts import render, redirect
 from admin_app.models import Product
 from user_app.models import *
