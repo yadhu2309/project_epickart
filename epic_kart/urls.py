@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 
+
 urlpatterns = [
     
     path('', include('store_app.urls')),
@@ -23,3 +24,5 @@ urlpatterns = [
     path('admin/', include('admin_app.urls')),
     path('cart/', include('cart.urls')),
 ]
+
+#+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
