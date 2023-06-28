@@ -84,8 +84,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'ekdb',
-        'USER': 'postgres',
-        'PASSWORD': 'admin',
+        'USER': 'admin',
+        'PASSWORD': 'password',
         'HOST': 'localhost',
     }
 }
