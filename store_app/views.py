@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from admin_app.models import Product
 from user_app.models import *
 from django.db.models import Sum
@@ -14,7 +15,10 @@ from django.core.paginator import Paginator, EmptyPage
 def product(request):
     category = Category.objects.all()
     
-    prod = Product.objects.all()
+    try:
+        prod = Product.objects.all()
+    except:
+        return HttpResponse("No Products")
     for i in prod:
         i.price=i.price_actual
         i.save()

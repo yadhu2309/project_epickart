@@ -8,9 +8,9 @@
 </style>
 
 <!-- Page Preloder -->
-    <div id="preloder">
+    {% comment %} <div id="preloder">
         <div class="loader"></div>
-    </div>
+    </div> {% endcomment %}
 
     <!-- Offcanvas Menu Begin -->
     <div class="offcanvas-menu-overlay"></div>
@@ -73,11 +73,11 @@
                 <div class="col-lg-6 col-md-6">
                     <nav class="header__menu mobile-menu">
                         <ul>
-                            <li><a href="./index.html">Home</a></li>
+                            <li><a href="{% url 'user_index' %}">Home</a></li>
                             <li><a href="{% url 'user_home'%}">Shop</a></li>
 
 
-                            <li><a href="./contact.html">Contacts</a></li>
+                            {% comment %} <li><a href="./contact.html">Contacts</a></li> {% endcomment %}
                         </ul>
                     </nav>
                 </div>

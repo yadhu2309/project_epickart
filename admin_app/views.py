@@ -442,7 +442,12 @@ def product_offer_add(request):
     return render(request,'admin_temp/add_product_offer.html',context)
 def product_offer_delete(request,id):
     if 'email' in request.session:
-        prod_off = ProductOffer.objects.get(id=id)
+        print('email',id)
+        try:
+            prod_off = ProductOffer.objects.get(id=id)
+        except:
+            return redirect(product_offer)
+
         prod_off.delete()
         prod_off.save()
         return redirect(product_offer)

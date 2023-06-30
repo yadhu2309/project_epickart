@@ -1,12 +1,64 @@
 {% extends 'base.html'%}
 {% block content %}
-<caption><h1>List of users</h1></caption>
+<style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    th{
+        font-size:20px
+    }
+    td{
+        font-size:15px
+    }
+    th,td{
+         padding: 5px; 
+        font-family: "Times New Roman", Times, serif;
+       
+
+    }
+    h2{
+        font-family: "Times New Roman", Times, serif;
+
+    }
+    </style>
+
+<div style="display:flex;align-item:center;">
+    <caption><h1>EpicKart</h1></caption>
+</div>
 <hr>
 
 <li><h2> customerName: {{customerName}}</h2></li>
 <li><h2> customerEmail: {{customerEmail}}</h2></li>
 <li><h2> customerMobile: {{customerMobile}}</h2></li>
 <li><h2> shipmentAddress: {{shipmentAddress}}</h2></li>
+
+<table>
+    <tr>
+      <th>Image</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Quantity</th>
+
+      <th>Price</th>
+    
+
+    </tr>
+    <tr>
+      <td><img src='{{productimage}}'/></td>
+      <td>{{productName}} {{productseries}}</td>
+      <td>{{productDescription}}</td>
+      <td>{{productQuantity}}</td>
+      <td>{{productPrice}}</td>
+    </tr>
+
+    <tr>
+      <td colspan='4'>Total Price</td>
+      <td> {% widthratio productPrice 1 productQuantity %}.00 Rs</td>
+      {% comment %} <td></td> {% endcomment %}
+      
+    </tr>
+  </table>
   
 
 {% endblock%}

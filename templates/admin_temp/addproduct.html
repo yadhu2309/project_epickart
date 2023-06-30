@@ -133,19 +133,20 @@ add product
         <h2 class="mb-4">Images</h2>
         <div class="row">
             <div class="col">
-                <input type="file" class="form-control" required name="image">
+                <input type="file" id='img1'  class="form-control" required name="image" onchange="validateImage(this)" accept="image/*">
+                <span id="errorSpan" style="color: red;"></span>
             </div>
             <div class="col">
-                <input type="file" class="form-control" required name="image1">
+                <input type="file" class="form-control" required name="image1" accept="image/*">
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col">
-                <input type="file" class="form-control" required name="image2">
+                <input type="file" class="form-control" required name="image2" accept="image/*">
             </div>
             <div class="col">
-                <input type="file" class="form-control" required name="image3">
+                <input type="file" class="form-control" required name="image3" accept="image/*">
             </div>
         </div>
         <br>
@@ -174,6 +175,33 @@ add product
 {% endfor %}
 </script>
 <!---------------->
+<script>
+  function validateImage(input) {
+    var file = input.files[0];
+    var img = new Image();
+    var maxWidth = 1500;
+    var maxHeight = 1500;
+    var minWidth = 1000
+    var minHeight = 1000
+    var errorSpan = document.getElementById("errorSpan");
+  
+  img.onload = function() {
+    var width = this.width;
+    var height = this.height;
+
+    if (width > maxWidth || width < minWidth || height > maxHeight || width < minHeight) {
+      console.log('width',width)
+      console.log('height',height)
+      errorSpan.textContent = "Image width and height must between 1000 and 1500 pixels.";
+      input.value = ""; // Clear the input field
+    } else {
+      errorSpan.textContent = ""; // Clear any previous error message
+    }
+  };
+
+  img.src = URL.createObjectURL(file);
+}
+</script>
 
 {% for i in s %}
 <img src="{{i.sub_cate_image}}">

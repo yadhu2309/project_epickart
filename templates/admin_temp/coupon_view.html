@@ -31,7 +31,9 @@ Coupon
         <div class="card-body">
           <h5 class="card-title">{{i.name}}</h5>
           <h6 class="card-subtitle mb-2 text-muted">code:{{i.code}}</h6>
-          <p>₹ {{i.discount_amount}}</p>
+          <p>Maximum Discount: ₹{{i.discount_amount}}</p>
+
+          <p>Percentage: {{i.discountpercentage}}%</p>
           <p class="card-text">{{i.description}}</p>
           
           <a href="{% url 'coupon_delete' i.id %}" class="btn btn-outline-dark">Delete</a>

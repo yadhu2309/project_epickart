@@ -11,9 +11,9 @@ Order
 </style>
 
 <!-- Page Preloder -->
-    <div id="preloder">
+    {% comment %} <div id="preloder">
         <div class="loader"></div>
-    </div>
+    </div> {% endcomment %}
 
     <!-- Offcanvas Menu Begin -->
     <div class="offcanvas-menu-overlay"></div>
@@ -227,7 +227,7 @@ var options = {
     "image": "https://example.com/your_logo",
     "order_id": "{{payment.id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 2
     "handler": function (response){
-       window.location.href = "{% url 'payment_complete_razor' id %}"
+       window.location.href = "{% url 'payment_complete_razor' id add %}"
     },
     
     "notes": {
@@ -237,7 +237,9 @@ var options = {
         "color": "#3399cc"
     }
 };
-var rzp1 = new Razorpay(options);
+
+    var rzp1 = new Razorpay(options);
+
 rzp1.on('payment.failed', function (response){
         alert(response.error.code);
         alert(response.error.description);

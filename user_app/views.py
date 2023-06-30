@@ -103,8 +103,10 @@ def user_login(request):
 
                         return redirect(user_home)
                 else:
-                    messages.info(request,'error')
-            print(request.session['guest'])
+                    messages.warning(request,'Invalid Email or Password')    
+
+                    # return HttpResponse("error")
+            # print(request.session['guest'])
         else:
             messages.warning(request,'Invalid Email or Password')    
     return render(request, 'user_temp/user_login.html')
@@ -195,7 +197,7 @@ def user_home(request):
                     if j.status == True:
                         # sale=j.percentage
                         actual_price=i.price_actual
-                        amount = (j.percentage*i.price)/100
+                        amount = (j.percentage * i.price) // 100
                         i.price = i.price-amount
                         print(j.percentage)
                     if j.valid_till < now:
@@ -220,7 +222,7 @@ def user_home(request):
                                 if coff.percentage < poff.percentage:
                                     print("productname",poff.pid.series)
                                     print("success yadhu")
-                                    amt = (poff.percentage*i.price_actual)/100
+                                    amt = (poff.percentage * i.price_actual) // 100
                                     i.price = i.price_actual-amt
                     
             # prod_off = ProductOffer.objects.filter(pid=i.id)
@@ -266,7 +268,7 @@ def user_home(request):
                         if cate_off:
                             for j in cate_off:
                                 if j.status == True:
-                                    i.price = i.price-j.percentage
+                                    i.price = i.price - (i.price * j.percentage) // 100
                                     i.is_offer_apply = True
                                 if j.valid_till < now:
                                     print('2666')
@@ -555,7 +557,7 @@ def add_cart(request, id, pid):
 
 def cart_view(request):
     if 'uname' in request.session:
-        cart = Cart_view.objects.all().order_by('id')
+        # cart = Cart_view.objects.all().order_by('id')
 
         user_detail = request.session.get('uname')
         print(user_detail)
@@ -564,10 +566,10 @@ def cart_view(request):
         # Cart_view.objects.aggregate(Sum('total_price'))
 
         check = Cart_view.objects.filter(uid_id=user.id)
-        print("helo",check)
-        print(user.id)
-        print(check is NULL)
-        print(check)
+        # print("helo",check)
+        # print(user.id)
+        # print(check is NULL)
+        # print(check)
 
         car = Cart_view.objects.filter(uid_id=user.id).aggregate(Sum('total_price'))
         return render(request, 'user_temp/cart_page.html', {'cart': check, 'user': user, 'user_info': user_info, 'car': car['total_price__sum']})
@@ -703,6 +705,12 @@ def address_checkout(request,id):
     if 'uname' in request.session:
         uname = request.session.get('uname')
         address = Address.objects.filter(user=id) 
+        try:
+            Cart_view.objects.filter(uid_id=id)
+        except Exception as e :
+            return redirect('view_cart')
+
+        
         if Cart_view.objects.filter(uid_id=id):
             user_info = UserSignUp.objects.get(email=uname)
             wallet = Wallet.objects.get(user_id=user_info)
@@ -719,14 +727,20 @@ def address_checkout(request,id):
             if 'coupon_id' in request.session:
                     code_name = request.session.get('coupon_id')
                     print(code_name)
-                    coupon = Coupon.objects.get(code=code_name)
+                    try:
+                        coupon = Coupon.objects.get(code=code_name)
+                    except:
+                        messages.warning(request,'Coupon Expired')
                     if coupon:
                         if CouponApplied.objects.filter(coupon_id_id=coupon,user_id=user):
                             print('used once')
                             messages.warning(request,'Already Used :( ')
                         else:
-                            discount = coupon.discount_amount
-                            amt = amt-coupon.discount_amount
+                            # discount = coupon.discount_amount
+                            discount = (amt * coupon.discountpercentage)//100
+                            if discount > coupon.discount_amount:
+                                discount = coupon.discount_amount
+                            amt = amt-discount
                             print(amt)
                             
                         # if CouponApplied.objects.filter(coupon_id_id=coupon,user_id=user,status=False):
@@ -780,7 +794,9 @@ def address_checkout(request,id):
                                 applied.save()
                                 del request.session['coupon_id']
                         return redirect('payment_methods',pay.pk,amt,add)
-               
+                    if pay_method == 'rayzorpay':
+                    
+                        return redirect('payment_method_razor',pay.pk,add)   
                
                 order = Order()
                 order.user = user
@@ -834,9 +850,7 @@ def address_checkout(request,id):
                         product.stock = int(product.stock)-int(order_prod.quantity)
                     product.save()
                 
-                if pay_method == 'rayzorpay':
-                    
-                    return redirect('payment_method_razor',pay.pk,add)   
+                
                
                 
                 
@@ -845,9 +859,6 @@ def address_checkout(request,id):
                  
                 
             return render(request, 'store_temp/checkout_address.html', {'cart': cart, 'user': user,'address':address, 'amt': amt,'wallet':wallet,'actual_amt':actual_amt,'coupon':coupon,'discount':discount})
-        else:
-            print("nothing in cart")
-            return render(request, 'user_temp/cart_page.html', {'message': 'Nothing in cart'})
 
 def apply_coupon(request):
     if 'uname' in request.session:
@@ -869,21 +880,30 @@ def payment_method_razor(request,id,add):
     if 'uname' in request.session:
         uname = request.session.get('uname')
         user = UserSignUp.objects.get(email=uname)
-        cart = Cart_view.objects.filter(uid_id=user.id)
-        sum = Cart_view.objects.filter(uid_id=user.id).aggregate(Sum('total_price'))
-        sum_int = int(sum['total_price__sum'])
+        try:
+            cart = Cart_view.objects.filter(uid_id=user.id)
+            sum = cart.aggregate(Sum('total_price'))
+            sum_int = int(sum['total_price__sum'])
+        except:
+            return redirect('cart_user_view')
+        
         print(int(sum['total_price__sum']))
-        client = razorpay.Client(auth = (settings.KEY, settings.SECRET))
-        payment = client.order.create({'amount':sum_int* 100,'currency':'INR','payment_capture':1})
+        try:
+            client = razorpay.Client(auth = (settings.KEY, settings.SECRET))
+            payment = client.order.create({'amount':sum_int* 100,'currency':'INR','payment_capture':1})
+            # payment=request.session.get("payment")
+        except:
+            return HttpResponse('session expired')
         address = Address.objects.get(id=add)
+        request.session['payment']=payment
         context = {
             'id':id,
             'payment': payment,
             'cart':cart,
             'Grand_total':sum_int,
             'address':address,
+            'add':add,
             }
-        request.session['payment']=payment
     return render(request,'store_temp/payment_razor.html',context)
 
 def payment_methods(request,id,amt,add):
@@ -917,16 +937,16 @@ def payment_methods(request,id,amt,add):
     return render(request,'store_temp/payment.html',context)
 
 from django.http import JsonResponse
-def payment_complete_razor(request,id):
+def payment_complete_razor(request,id,add):
     if 'payment' in request.session:
         payment=request.session.get("payment")
-
-
-        order = Order.objects.get(payment_id=id)
-        order_prod = OrderProduct.objects.filter(order_id=order)
         uname=request.session.get('uname')
         user=UserSignUp.objects.get(email=uname)
-        payment=request.session.get("payment")
+
+
+        # order = Order.objects.get(payment_id=id)
+        # order_prod = OrderProduct.objects.filter(order_id=order)
+
         pay = Payment.objects.get(id=id)
         pay.payment_method = 'razorpay'
         pay.status = payment['status']
@@ -936,13 +956,57 @@ def payment_complete_razor(request,id):
         actual_amount=actual_amount/100
         pay.amount_paid = actual_amount
         pay.save()
-        if pay.status == 'created':
-            order.is_ordered = False
-            for i in order_prod:
-                i.ordered = True
-                i.save()
-            order.save()
-        Cart_view.objects.filter(uid_id=user.id).delete()
+
+        order = Order()
+        order.user = user
+        order.payment = pay
+        address_check = Address.objects.get(id=add)
+        order.address_line_1 = address_check.address_line_1
+        order.address_line_2 = address_check.address_line_1
+        order.first_name = address_check.first_name
+        order.last_name = address_check.last_name
+        order.phone = address_check.phone
+        order.email = address_check.email
+        order.country = address_check.country
+        order.city = address_check.city
+        order.state = address_check.state
+        order.zip_code = address_check.zip
+
+        yr = int(datetime.date.today().strftime('%Y'))
+        dt = int(datetime.date.today().strftime('%d'))
+        mt = int(datetime.date.today().strftime('%m'))
+        d = datetime.date(yr, mt, dt)
+        current_date = d.strftime("%Y%m%d")  # 20210305
+
+
+        total_amt = Cart_view.objects.filter(uid_id=user.id).aggregate(Sum('total_price'))
+        order.order_total = total_amt['total_price__sum']
+        order.order_number = current_date + str(order.id)
+        order.save()
+        cart = Cart_view.objects.filter(uid_id=user.id)
+        for i in cart:
+            order_prod = OrderProduct()
+            order_prod.order = order
+            order_prod.payment = pay
+            order_prod.user = user
+
+            order_prod.product = Product.objects.get(id=i.pid.id)
+            order_prod.quantity = i.qty
+            order_prod.product_price = i.pid.price
+            order_prod.save()
+            product = Product.objects.get(id=i.pid_id)
+            product.stock = int(product.stock)-int(order_prod.quantity)
+            product.save()
+        
+        cart.delete()
+
+
+        # if pay.status == 'created':
+        #     order.is_ordered = False
+        #     for i in order_prod:
+        #         i.ordered = True
+        #         i.save()
+        #     order.save()
         del request.session['payment']
     return render(request,'user_temp/payment_complete.html',{'message': 'Payment Successful!!'})
 
@@ -964,6 +1028,7 @@ def payment_confirm(request,id,add,amt):
         pay.amount_paid = amt
         pay.user = user
         pay.save()
+        
         order = Order()
         order.user = user
         order.payment = pay
@@ -1066,6 +1131,7 @@ def view_order_detail(request,id):
             'total':total,
             'user_info': user_info,
             'order':order,
+            'id':id,
         }
         return render(request,'user_temp/profile/order_view_product.html', context)
 
@@ -1253,6 +1319,8 @@ def download(request,id):
 
     }
     return render_to_pdf('store_temp/download.html',mydict)
+
+
 ##################################################################################
 
 def add_address(request):

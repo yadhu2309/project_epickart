@@ -150,9 +150,9 @@ Order
 </style>
 
 <!-- Page Preloder -->
-    <div id="preloder">
+    {% comment %} <div id="preloder">
         <div class="loader"></div>
-    </div>
+    </div> {% endcomment %}
 
     <!-- Offcanvas Menu Begin -->
     <div class="offcanvas-menu-overlay"></div>
@@ -218,11 +218,11 @@ Order
                 <div class="col-lg-6 col-md-6">
                     <nav class="header__menu mobile-menu">
                         <ul>
-                            <li><a href="./index.html">Home</a></li>
+                            <li><a href="{% url 'user_index'%}">Home</a></li>
                             <li><a href="{% url 'user_home'%}">Shop</a></li>
 
 
-                            <li><a href="./contact.html">Contacts</a></li>
+                            {% comment %} <li><a href="./contact.html">Contacts</a></li> {% endcomment %}
                             <li><a href="{% url 'profile' user_info.id %}">My Profile</a></li>
                         </ul>
                     </nav>
@@ -247,12 +247,12 @@ Order
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb__text">
-<!--                        <h4>Shopping Cart</h4>-->
-<!--                        <div class="breadcrumb__links">-->
-<!--                            <a href="./index.html">Home</a>-->
-<!--                            <a href="{% url 'productall' %}">Shop</a>-->
-<!--                            <span>Shopping Cart</span>-->
-<!--                        </div>-->
+                        <h4>EpicKart</h4>
+                        <div class="breadcrumb__links">
+                            <a href="{% url 'user_index'%}">Home</a>
+                           <a href="{% url 'user_home' %}">Shop</a>
+                     <span>My Orders</span>
+                     </div>
                     </div>
                 </div>
             </div>
@@ -299,9 +299,13 @@ Order
 
 
                                 Total:₹ {% widthratio i.product_price 1 i.quantity %}<br>
-                                    Status:<span style="{% if i.status == 'Cancelled' %} color:red {% elif i.status == 'Confirmed' %} color:#23d60f{% elif i.status == 'Out of delivery' %}color:blue{% else%}color:orange{% endif %}"> {{i.status}}</span></td>
+                                    Status:<span style="{% if i.status == 'Cancelled' %} color:red {% elif i.status == 'Confirmed' %}
+                                     color:#23d60f{% elif i.status == 'Out of delivery' %}
+                                     color:blue{% else%}color:orange{% endif %}"> {{i.status}}</span></td>
                                      {% comment %} <td class="">{% if i.status != 'Cancelled' %}<a class='btn btn-dark' style="text-decoration:none" href="{% url 'user_product_cancel' i.id %}">Cancel</a>{% endif %}</td> {% endcomment %}
-                                     <td class="">{% if i.status != 'Cancelled' %}<a class='btn btn-dark' style="text-decoration:none" href="{% url 'download' i.id %}">Download</a>{% endif %}</td>
+                                     <td class="">{% if i.status != 'Cancelled' %}<a class='btn btn-dark'
+                                         style="text-decoration:none" href="{% url 'download' i.id %}">
+                                         Download</a>{% endif %}</td>
                                     
                                 </tr>
 
@@ -344,13 +348,13 @@ Order
                         </div>
                     </div>
                     <div class="cart__total">
-                        {% comment %} <h6>Order total</h6>
+                        <h6>Order total</h6>
                         <ul>
 
-                            <li>Total <span>{{total}}
+                            <li>Total <span>₹ {{total}}
                             </span></li>
                         </ul>
-                        <a href="" class="primary-btn">Download</a> {% endcomment %}
+                        {% comment %} <a href="{% url 'download_order' id %}" class="primary-btn">Download</a>  {% endcomment %}
                         
                     </div> 
                 </div>

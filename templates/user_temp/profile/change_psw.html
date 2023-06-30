@@ -11,9 +11,9 @@ Edit Profile
 </style>
 
 <!-- Page Preloder -->
-    <div id="preloder">
+    {% comment %} <div id="preloder">
         <div class="loader"></div>
-    </div>
+    </div> {% endcomment %}
 
     <!-- Offcanvas Menu Begin -->
     <div class="offcanvas-menu-overlay"></div>
@@ -29,7 +29,7 @@ Edit Profile
         <div class="offcanvas__nav__option">
             <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
             <a href="#"><img src="img/icon/heart.png" alt=""></a>
-            <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
+            {% comment %} <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a> {% endcomment %}
 
         </div>
         <div id="mobile-menu-wrap"></div>
@@ -78,8 +78,8 @@ Edit Profile
                 <div class="col-lg-6 col-md-6">
                     <nav class="header__menu mobile-menu">
                         <ul>
-                            <li><a href="./index.html">Home</a></li>
-                            <li><a href="{% url 'productall' %}">Shop</a></li>
+                            <li><a href="{% url 'user_index' %}">Home</a></li>
+                            <li><a href="{% url 'user_home' %}">Shop</a></li>
 
 
                             <li><a href="{% url 'profile' user.id %}">My Profile</a></li>
@@ -90,7 +90,7 @@ Edit Profile
                     <div class="header__nav__option">
                         <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
                         <a href="#"><img src="img/icon/heart.png" alt=""></a>
-                        <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
+                        {% comment %} <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a> {% endcomment %}
 
                     </div>
                 </div>
@@ -106,12 +106,12 @@ Edit Profile
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb__text">
-<!--                        <h4>Shopping Cart</h4>-->
-<!--                        <div class="breadcrumb__links">-->
-<!--                            <a href="./index.html">Home</a>-->
-<!--                            <a href="{% url 'productall' %}">Shop</a>-->
-<!--                            <span>Shopping Cart</span>-->
-<!--                        </div>-->
+                    <h4>EpicKart</h4>
+                       <div class="breadcrumb__links">
+                         {% comment %} <a href="{% url 'user_index' %}">Home</a> {% endcomment %}
+                       <a href="{% url 'profile' user.id %}">My Profile</a>
+                          <span>Change Password</span>
+                        </div>
                     </div>
                 </div>
             </div>

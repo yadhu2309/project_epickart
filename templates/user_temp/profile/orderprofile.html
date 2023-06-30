@@ -35,9 +35,9 @@ Order
 </style>
 
 <!-- Page Preloder -->
-    <div id="preloder">
+    {% comment %} <div id="preloder">
         <div class="loader"></div>
-    </div>
+    </div> {% endcomment %}
 
     <!-- Offcanvas Menu Begin -->
     <div class="offcanvas-menu-overlay"></div>
@@ -132,21 +132,21 @@ Order
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb__text">
-<!--                        <h4>Shopping Cart</h4>-->
-<!--                        <div class="breadcrumb__links">-->
-<!--                            <a href="./index.html">Home</a>-->
-<!--                            <a href="{% url 'productall' %}">Shop</a>-->
-<!--                            <span>Shopping Cart</span>-->
-<!--                        </div>-->
+                        <h4>EpicKart</h4>
+                        <div class="breadcrumb__links">
+                            <a href="{% url 'user_index' %}">Home</a>
+                            <a href="{% url 'user_home' %}">Shop</a>
+                            <span>My Orders</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-<div class='row d-flex mt-5'>
+{% comment %} <div class='row d-flex mt-5'>
      
    
-    </div>
+    </div> {% endcomment %}
 <!-- Shopping Cart Section Begin -->
     <section class="shopping-cart spad">
         
@@ -239,7 +239,7 @@ Order
                         <ul>
                             <form method="POST">
                             {% csrf_token%}
-                            <li><span> <select class="form-select ms-5 form-select-lg mb-3" name='select' aria-label=".form-select-sm example">
+                            <span> <select class="form-select ms-5 form-select-lg mb-3" name='select' aria-label=".form-select-sm example">
                                 <option value='Cancelled'>Cancelled</option>
                                 <option value='Confirmed'>Confirmed</option>
                                 <option value='Shipped'>Shipped</option>
@@ -252,7 +252,7 @@ Order
                                 
                                    <input type='submit' class='btn btn-dark ms-5' value='Submit'>
                                  
-                            </span></li>
+                            </span>
                         </form>
                         </ul>
                        
